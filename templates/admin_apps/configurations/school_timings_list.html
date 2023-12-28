@@ -1,0 +1,90 @@
+<!-- school_timings_list.html -->
+{% extends 'base/base.html' %}
+
+{% block bodyblock %}
+  <div class="container">
+    <h1>School Timings List</h1>
+
+    <table class="timings-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Day of the Week</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for timing in timings_list %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ timing.day_of_week }}</td>
+            <td>{{ timing.start_time|time:'g:i A' }}</td>
+            <td>{{ timing.end_time|time:'g:i A' }}</td>
+            <td>
+              <a href="{% url 'school-timings-update' pk = timing.pk %}" class="update-link">Update</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <style>
+    .container {
+      max-width: 100%;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: white;
+    }
+    h1 {
+      text-align: center;
+    }
+    .timings-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    
+    .timings-table th,
+    .timings-table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    
+    .timings-table th {
+      background-color: #f2f2f2;
+    }
+    
+    .timings-table a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    
+    .timings-table a:hover {
+      text-decoration: underline;
+    }
+    .update-link {
+      display: inline-block;
+      margin-right: 10px;
+      text-decoration: none;
+      padding: 5px 10px;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      color: #007bff;
+    }
+    
+    .update-link:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+{% endblock %}

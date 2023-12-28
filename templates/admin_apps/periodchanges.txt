@@ -1,0 +1,3 @@
+1)  apss --> admin_apps --> registration_app --> utils.py -->  create_table --> query 
+2)  apss --> admin_apps --> registration_app --> models.py -->  Timetable  -->  PERIOD_CHOICES
+3)  apss --> admin_apps --> registration_app --> views.py -->  ClassSectionCreateView --> query

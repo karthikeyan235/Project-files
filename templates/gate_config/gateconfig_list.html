@@ -1,0 +1,72 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/admin_apps/registrations/css/details_list.css' %}" />
+  <script src="{% static '/admin_apps/registrations/js/details_list.js' %}"></script>
+
+  {% include 'base/alert.html' %}
+
+  <article class="card">
+    <h1 style="color:black">Gate Configuration List</h1>
+    <header>
+      <div>
+        <div class="buttons">
+          <a href="{% url 'adminconfig_homepage' %}" class="button">Back</a>
+          <a href="{% url 'gateconfig-create' %}" class="button">Create New Gate Config</a>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="search-container">
+        <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search By Name/ID ...." />
+      </div>
+      <div class="export-container">
+        <div class="btn-group">
+          <select class="btn btn-secondary dropdown-toggle" aria-labelledby="dropdownMenuButton" id="exportDropdown" aria-haspopup="true" aria-expanded="false">
+            <option disabled selected>SELECT FORMAT</option>
+            <option value="excel" class="dropdown-item">EXCEL</option>
+            <option value="csv" class="dropdown-item">CSV</option>
+          </select>
+          <button class="btn btn-secondary" onclick="handleExportSelection('gatereader',6)" style="border-radius: 10px;">Export</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tables">
+      <table class="active" id="myTable">
+        <tbody class="active">
+          <tr>
+            <th>SL NO</th>
+            <th>READER ID</th>
+            <th>READER NAME</th>
+            <th>SIM NUMBER</th>
+            <th>LATITUDE</th>
+            <th>LONGITUDE</th>
+            <th>ACTIONS</th>
+          </tr>
+
+          <tr>
+            {% if gateconfigs %}
+              {% for gateconfig in gateconfigs %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ gateconfig.gatereaderid }}</td>
+                  <td>{{ gateconfig.gatereadername }}</td>
+                  <td>{{ gateconfig.simno }}</td>
+                  <td>{{ gateconfig.lat }}</td>
+                  <td>{{ gateconfig.lang }}</td>
+                  <td class="actions">
+                    <a href="{% url 'gateconfig-detail' gateconfig.pk %}" class="action-link">View</a>
+                    <a href="{% url 'gateconfig-update' gateconfig.pk %}" class="action-link2">Edit</a>
+                    <a href="{% url 'gateconfig-delete' gateconfig.pk %}" class="action-link3">Delete</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            {% endif %}
+          </tr>
+        </tbody>
+      </table>
+      <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+    </div>
+  </article>
+{% endblock %}

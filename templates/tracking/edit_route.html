@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+    <link rel="stylesheet" type="text/css" href="{% static "/trackingcss/edit.css" %}">
+
+
+<div class="cnt">
+  <form method='POST' id="route-form" action=''> 
+  
+    {% if messages %}
+      {% for message in messages %}
+      <p class="success">{{ message }}</p>
+      {% endfor %}
+      {% endif %}
+      
+      {% if error_message %}
+      <p class="error">{{ error_message }}</p>
+      {% endif %}
+      {% csrf_token %}
+    {% csrf_token %}
+   
+    <h3 align="center">EDIT ROUTE</h3>
+  
+    <div class="form-group">
+      <label for="route-number">Route Number</label>
+      <input type="text" id="route-number" name="route_no" value="{{ route.1 }}"  required>
+    </div>
+    
+    <div class="form-group">
+      <label for="route-map">Route Name</label>
+      <input type="text" id="route-map" name="route_name" value="{{ route.2 }}"  required>
+    </div>
+    
+    <div class="form-group">
+      <label for="vehicle-number">Vehicle Number</label>
+      <input type="text" id="vehicle-number" name="vehicle_no" value="{{ route.3 }}" required>
+    </div>
+  
+    <div class="form-group">
+      <label for="vts-id">VTS ID</label>
+      <input type="text" id="vts-id" name="vts_id"  value="{{ route.4 }}" required>
+    </div>
+    
+    <button type="submit" id="submit-button" onclick="submitClick()" >Save changes</button>
+   
+    <span class="link">
+    <a href="{% url 'assigned_routes' %}">Cancel</a>
+    </span>
+  
+  </form>
+  </div>
+  
+  {% endblock %}
+
+

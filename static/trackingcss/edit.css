@@ -1,0 +1,132 @@
+h3 {
+  text-decoration: underline;
+}
+
+form {
+  border: 3px solid rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 450px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Ensures the padding is included in the width calculation */
+}
+.header {
+    background: transparent;
+    color: #ffffff;
+    padding: 15px;
+  }
+ 
+
+button[type="submit"] {
+  background-color:  rgb(40, 147, 40);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="save"] {
+  background-color:  rgb(40, 147, 40);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+thead {
+  background-color: #04AA6D;
+
+}
+thead tr,th {
+  color: white;
+}
+table, th,td {
+border:1px solid white;
+width: 100px;
+text-align: center;
+padding: 15px;
+border-radius:5px;
+}
+.search {
+  margin-bottom:20px;
+}
+
+.search input[type="text"] {
+width:250px;
+border:2px solid gray;
+font-size:15px;
+}
+
+.search button {
+width:80px;
+background: #04AA6D;
+color: #ffffff;
+border-radius:10px;
+border:white;
+font-size:17px;
+}
+
+::placeholder {
+font-size:20px;
+}
+
+.link a {
+text-decoration:none;
+font-size:16px;
+margin-left:20px;
+padding:10px;
+border-radius:5px;
+background-color:rgb(250, 53, 53);
+color:#fff;
+
+}
+
+span a:hover {
+color:#fff;
+}
+
+.cnt{
+  display:flex;
+  justify-content:center;
+  margin-top:70px;
+  background-color: #9BABB8;
+}
+
+/* {% comment %} media querry {% endcomment %} */
+@media (max-width: 600px) {
+
+form {
+  max-width: 100%;
+  margin-left:-1px;
+} 
+span {
+  margin-top:15px;
+}
+.cnt{
+  margin-top:30px;
+  background-color: #9BABB8;
+}
+}

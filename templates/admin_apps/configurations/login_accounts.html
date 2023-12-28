@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load custom_filters %}
+{% block bodyblock %}
+  <style type="text/css">
+    .tbl {
+      width: 100%;
+      height: 80vh;
+      overflow: auto;
+      background-color: whitesmoke;
+    }
+    table {
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      color: whitesmoke;
+    }
+    tr:nth-child(even) {
+      background-color: #d9f4e0;
+    }
+  </style>
+  {% include 'base/alert.html' %}
+  <h1>User Accounts List</h1>
+  <div class="tbl">
+    <table border="1">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Account Type</th>
+          <th>Students</th>
+          <th>Actions</th>
+          <!-- Add more fields as needed -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in user_accounts %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.profile.phone_number }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.profile.user_type }}</td>
+            <td>
+              {% for id in user.profile.id_number|split:',' %}
+                {% if id|get_student_name %}
+                  <li>{{ id|get_student_name }}</li>
+                {% elif id|get_teacher_name %}
+                  <li>{{ id|get_teacher_name }}</li>
+                {% elif id|get_staff_name %}
+                  <li>{{ id|get_staff_name }}</li>
+                {% endif %}
+              {% endfor %}
+            </td>
+            <td>
+              <a href="{% url 'login-account-delete' usr = user.username %}">Delete</a>
+            </td>
+            <!-- Add more fields as needed -->
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

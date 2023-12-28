@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block bodyblock %}
+  <div class="special-timings-form-container">
+    <h1>
+      {% if request.resolver_match.url_name == 'school-special-timings-create' %}
+        Create
+      {% else %}
+        Update
+      {% endif %}School Special Timing
+    </h1>
+    <form method="post" class="special-timings-form">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="save-button">Save</button>
+      <a href="{% url 'school-special-timings-list' %}" class="cancel-link">Cancel</a>
+    </form>
+  </div>
+
+  <style type="text/css">
+    /* Add this to your CSS file or style section */
+    
+    .special-timings-form-container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .special-timings-form h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .special-timings-form {
+      margin-bottom: 20px;
+    }
+    
+    .save-button,
+    .cancel-link {
+      display: inline-block;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .save-button {
+      background-color: #007bff;
+      color: #fff;
+    }
+    
+    .save-button:hover {
+      background-color: #0056b3;
+    }
+    
+    .cancel-link {
+      border: solid black 2px;
+      color: white;
+      margin-left: 10px;
+      background-color: #007bff;
+    }
+    
+    .cancel-link:hover {
+      background-color: #0056b3;
+      color: white;
+    }
+    
+    @media (min-width: 900px) {
+      .special-timings-form-container {
+        margin-top: 100px;
+      }
+    }
+  </style>
+
+  <script>
+    // Function to change input type to time
+    function changeInputTypeToTime(inputId) {
+      var inputElement = document.getElementById(inputId)
+      inputElement.type = 'time'
+    }
+    
+    // Call the function for start_time and end_time inputs
+    changeInputTypeToTime('id_start_time')
+    changeInputTypeToTime('id_end_time')
+  </script>
+{% endblock %}

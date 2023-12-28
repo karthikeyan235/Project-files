@@ -1,0 +1,188 @@
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  height: 90vh;
+}
+
+#map {
+  flex: 1;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 20px;
+}
+
+.tables {
+  flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.tables {
+  overflow: auto;
+}
+.container {
+ position: static;
+}
+
+.card {
+  padding: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  width: 100%;
+  height: 540px;
+}
+
+.card header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+
+
+table {
+  top: 0;
+  left: 0;
+  right: auto;
+  bottom: auto;
+  animation: table-out 0.2s both;
+}
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #d6e6e5;
+  }
+
+  th {
+    background-color: #127bd7 !important;
+    font-weight: bold;
+    position: sticky !important;
+    top: 0 !important;
+  }
+
+
+
+/* Other CSS styling for input and no results message */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.no-results {
+  color: #ff5555;
+  margin-top: 10px;
+}
+  /* Responsive styles */
+  /* Responsive styles */
+  @media screen and (max-width: 600px) {
+    table {
+      display: block;
+      /* overflow-x: auto; */
+      white-space: nowrap;
+    }
+    th {
+      background-color: #127bd7 !important;
+      position: sticky !important;
+      top: 0 !important;
+    }
+
+    
+    td {
+      display: table-cell;
+      width: auto;
+      font-size: 0.8rem;
+      
+    }
+
+    th:last-child,
+    td:last-child {
+      border-right: none;
+    }
+  }
+
+ 
+
+table tr td:nth-child(2) {
+  width: 140px;
+}
+
+@keyframes table-in {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@keyframes table-out {
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+table.active {
+  animation: table-in 0.2s 0.2s both;
+}
+/* Style for the table */
+table.active {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style for table header */
+table.active th {
+  background-color: rgb(152, 189, 248);
+  color: #333;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Style for table rows */
+table.active td {
+  padding: 10px;
+}
+
+/* Style for alternate table rows */
+table.active tbody tr:nth-child(even) {
+  background-color: #d9f4f7;
+}
+
+/* Style for table links */
+table.active a {
+  text-decoration: none;
+}
+table.active a .view-button:hover {
+    background-color: #45a049;
+  }
+  @media screen and (max-width: 768px) {
+    .row {
+      flex-direction: column;
+      height:170vh;
+    }
+
+    #map {
+      margin-right: 0;
+      margin-bottom: 20px;
+    }
+  }

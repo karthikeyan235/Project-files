@@ -1,0 +1,177 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block bodyblock %}
+  <style type="text/css">
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 2rem;
+    }
+    
+    h1 {
+      text-align: center;
+      font-weight: bolder;
+    }
+    /* Style for the entire table */
+    
+    table {
+      width: 100%;
+      border: solid;
+      margin-top: 20px;
+      background-color: white;
+    }
+    
+    th,
+    td {
+      padding: 10px;
+      text-align: left;
+    }
+    
+    td {
+      background-color: lightcyan;
+    }
+    th {
+      border-bottom: solid white 2px;
+    }
+    tr {
+      border-bottom: solid 2px;
+    }
+    @media screen and (max-width: 600px) {
+      th,
+      td {
+        display: block;
+        width: 100%;
+      }
+    
+      th {
+        background-color: rgb(68, 65, 65);
+        color: white;
+      }
+    
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+    }
+    .action-links {
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .action-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    
+    .action-link:hover {
+      background-color: #2980b9;
+    }
+  </style>
+
+  <div class="container">
+    <h1>Student Details</h1>
+    {% include 'base/alert.html' %}
+    {% if student.profile_image %}
+      <img src="{{ student.profile_image.url }}" alt="Student Photo" style="max-width: 100px; max-height: 100px; border-radius: 10%;margin-bottom:10px;" />
+    {% else %}
+      No photo available
+    {% endif %}
+    <br />
+    <table>
+      <tr>
+        <th>Name</th>
+        <td>{{ student.name }}</td>
+        <th>Student Id</th>
+        <td>{{ student.student_id }}</td>
+      </tr>
+      <tr>
+        <th>Roll No</th>
+        <td>{{ student.roll_no }}</td>
+        <th>Date of Birth</th>
+        <td>
+          {% if student.dob %}{{ student.dob }}{% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td>
+          {% if student.gender %}
+            {% if student.gender == 'M' %}
+              Male
+            {% elif student.gender == 'F' %}
+              Female
+            {% endif %}
+          {% endif %}
+        </td>
+        <th>Mobile No</th>
+        <td>{{ student.mobno }}</td>
+      </tr>
+      <tr>
+        <th>Parent Name-1</th>
+        <td>{{ student.parent_name1 }}</td>
+        <th>Parent Relation-1</th>
+        <td>
+          {% if student.parent_relation1 == 'M' %}
+            Mother
+          {% elif student.parent_relation1 == 'F' %}
+            Father
+          {% else %}
+            Guardian
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Parent Name-2</th>
+        <td>
+          {% if student.parent_name2 %}{{ student.parent_name2 }}{% endif %}
+        </td>
+        <th>Parent Relation-2</th>
+        <td>
+          {% if student.parent_relation2 %}
+            {% if student.parent_relation2 == 'M' %}
+              Mother
+            {% elif student.parent_relation2 == 'F' %}
+              Father
+            {% else %}
+              Guardian
+            {% endif %}
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Class Name</th>
+        <td>{{ student.class_name }}</td>
+        <th>Section</th>
+        <td>{{ student.section }}</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{ student.email }}</td>
+        <th>Date of Admission</th>
+        <td>
+          {% if student.dob %}{{ student.doj }}{% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Route Number</th>
+        <td> {% if student.dob %}{{ student.route_no }}{% endif %}</td>
+        <th>Stop Number</th>
+        <td>{% if student.dob %}{{ student.stop_no }}{% endif %}</td>
+      </tr>
+    </table>
+
+    <div class="action-links">
+      <a href="{% url 'student-list' %}" class="action-link">Back to List</a>
+    </div>
+  </div>
+{% endblock %}

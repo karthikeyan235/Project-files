@@ -1,0 +1,156 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+
+
+<style>
+    /* Responsive styles */
+    #map-container {
+        position: relative;
+        padding-bottom: 50%; /* Set the aspect ratio of the map */
+        height: 0;
+    }
+
+    #map {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Form styles */
+    .form-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .submit-button {
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Heading style */
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+  /* Back link style */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.back-link:hover {
+    background-color: #555;
+    color: white;
+}
+
+
+    /* Marker icon style */
+    .marker-icon {
+        width: 40px;
+        height: 40px;
+    }
+</style>
+
+<h1>Edit Route Stop Data</h1>
+
+<div class="form-container">
+    <form method="post">
+        {% csrf_token %}
+        <label for="stop_name" class="form-label">Stop Name:</label>
+        <input type="text" id="stop_name" name="stop_name" value="{{ route_stop.3 }}" class="form-input">
+        
+        <label for="latitude" class="form-label">Latitude:</label>
+        <input type="text" id="latitude" name="latitude" value="{{ route_stop.4 }}" class="form-input">
+        
+        <label for="longitude" class="form-label">Longitude:</label>
+        <input type="text" id="longitude" name="longitude" value="{{ route_stop.5 }}" class="form-input">
+
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        
+        <input type="submit" value="Update" class="submit-button">
+        <a href="{% url 'route_stop_view' %}" class="back-link">Back to Route Stop Data</a>
+    </form>
+</div>
+
+
+
+<script>
+    // Initialize the map
+    var map;
+    var marker;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: {{ route_stop.4 }}, lng: {{ route_stop.5 }} },
+            zoom: 15
+        });
+
+        marker = new google.maps.Marker({
+            position: { lat: {{ route_stop.4 }}, lng: {{ route_stop.5 }} },
+            map: map,
+            draggable: true
+        });
+
+        // Listen for click event on the map to update marker position
+        map.addListener('click', function(event) {
+            marker.setPosition(event.latLng);
+            updateLatLngInputs(event.latLng.lat(), event.latLng.lng());
+        });
+
+        // Listen for marker dragend event to update latitude and longitude inputs
+        marker.addListener('dragend', function(event) {
+            updateLatLngInputs(event.latLng.lat(), event.latLng.lng());
+        });
+    }
+
+    // Function to update latitude and longitude inputs
+    function updateLatLngInputs(lat, lng) {
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+    }
+
+    // Initialize the map when the page loads
+    initMap();
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPryL9hzv3i-FIy-T-hnEtYtZv4hSmrig&callback=initMap"></script>
+
+{% endblock %}

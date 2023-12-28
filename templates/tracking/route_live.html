@@ -1,0 +1,118 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+
+    <link rel="stylesheet" type="text/css" href="{% static "/trackingcss/route_live.css" %}">
+
+    <div class="row">
+        <div id="map">
+          <!-- Your map content goes here -->
+          Map
+        </div>
+      
+        <div class="tables">
+          <div class="card">
+            <div class="container">
+              <div class="search-container">
+                <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search By Name/Roll NO ....">
+              </div>
+            </div>
+      
+            <div class="tables">
+              <table class="active" id="myTable">
+                <tbody class="active">
+                  <tr>
+                    <th>#</th>
+                    <th>VtsId</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Speed</th>
+                    <th>RFIDtagCount</th>
+                  </tr>
+                  <!-- Table rows go here -->
+                </tbody>
+              </table>
+              <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <script>
+        let map;
+        let markers = []; // Array to store the markers
+        let infoWindow; // Info window to show site information
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 6,
+                center: { lat: 13.7749, lng: 77.4194 } // Default center (San Francisco)
+            });
+
+            infoWindow = new google.maps.InfoWindow();
+            updateMarkersAndTable(); // Fetch data and update map and table
+        }
+
+        function updateMarkersAndTable() {
+            const vtsId = document.getElementById('myInput').value;
+
+            // Clear existing markers from the map
+            markers.forEach(marker => marker.setMap(null));
+            markers = [];
+
+            // Fetch data for the searched VtsId from the backend using AJAX
+            //fetch(`racking/get_trackdata_markers/?vts_id=${vtsId}`)
+            fetch(`/tracking_app/get_trackdata_markers/?vts_id=${vtsId}`)
+
+                .then(response => response.json())
+                .then(data => {
+                    // Create markers and add them to the map for the searched VtsId
+                    data.forEach(markerData => {
+                        const { Latitude, Longitude, VtsId, Speed, RFIDtagCount } = markerData;
+                        const marker = new google.maps.Marker({
+                            position: { lat: parseFloat(Latitude), lng: parseFloat(Longitude) },
+                            map: map,
+                            title: `VtsId: ${VtsId}, Speed: ${Speed}, RFIDtagCount: ${RFIDtagCount}`,
+                            icon: '{% static "/base/images/bus1.png" %}'
+                        });
+
+                        markers.push(marker);
+
+                        // Add click event listener to show info window
+                        marker.addListener('click', () => {
+                            infoWindow.setContent(`<div>VtsId: ${VtsId}</div><div>Speed: ${Speed}</div><div>RFIDtagCount: ${RFIDtagCount}</div>`);
+                            infoWindow.open(map, marker);
+                        });
+                    });
+
+                    // If no markers found, show an alert
+                    if (data.length === 0) {
+                        alert(`No markers found for VtsId: ${vtsId}`);
+                    }
+
+                    // Update the table with marker data
+                    const tableBody = document.querySelector('#myTable tbody');
+                    tableBody.innerHTML = '';
+
+                    data.forEach(markerData => {
+                        const { VtsId, Latitude, Longitude, Speed, RFIDtagCount } = markerData;
+                        const row = `<tr>
+                                        <td>${VtsId}</td>
+                                        <td>${Latitude}</td>
+                                        <td>${Longitude}</td>
+                                        <td>${Speed}</td>
+                                        <td>${RFIDtagCount}</td>
+                                    </tr>`;
+                        tableBody.insertAdjacentHTML('beforeend', row);
+                    });
+                })
+                .catch(error => console.error('Error fetching markers:', error));
+               
+        }
+
+        setInterval(updateMarkersAndTable, 20000); // 20 seconds in milliseconds (1000 ms * 30 seconds)
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPryL9hzv3i-FIy-T-hnEtYtZv4hSmrig&callback=initMap" async defer></script>
+    {% endblock %}
+

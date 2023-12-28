@@ -1,0 +1,188 @@
+body {
+    font-family: Arial, sans-serif;  
+}
+/* Styling for Search Route Number Form */
+form {
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    padding: 5px;
+    border: 2px solid black;
+    border-radius: 3px;
+    width:200px;
+    margin-top:10px;
+}
+button[type="submit"] {
+    width: 80px;
+    height: 35px;
+}
+button {
+    padding: 5px 10px;
+    background-color:  #080b0a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Styling for Data Table */
+
+/* Styling for Edit and Delete Links */
+label {
+    margin-top:20px;
+    font-size:20px;
+}
+
+thead {
+background-color: #060707
+}
+
+thead tr,th {
+color: white;
+}
+
+table, th,td {
+border:1px solid white;
+width: 100px;
+text-align: center;
+padding: 15px;
+border-radius:5px;
+}
+
+::placeholder {
+    color: black;
+}
+
+
+@keyframes zoom-effect {
+from {
+   font-size: 0px;
+   color: blue;
+   
+}
+
+to {
+   font-size: 20px;
+   color: red;
+   margin-top:150px;
+}
+}
+
+.header {
+  background: tra;
+  color: #ffffff;
+  padding: 15px;
+}
+
+
+p
+ {
+  animation-name: zoom-effect;
+  animation-duration: 8s;
+  color: red;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left:500px;
+  text-decoration: underline ;
+ }
+
+ #export {
+  margin-left:15px;
+  height: 30px;
+  width: 80px;
+  font-size: 10px;
+}
+
+h3 {
+text-decoration:underline;
+font-weight: bold;
+}
+
+
+#table-container {
+  position: relative;
+  height: 350px; /* Set the desired height for the scrollable area */
+  overflow: auto; /* Enable scrolling for the container */
+  }
+  
+  table {
+  width: 100%;
+  }
+  
+  /* Styling for Data Table */
+  #table {
+  /* ... (Other styles) ... */
+  width: 100%; /* Use full width of the container */
+  }
+  
+  tbody {
+  /* ... (Other styles) ... */
+  overflow-y: auto; /* Enable vertical scrolling for the table body */
+  /* Adjust the height, leaving space for the header */
+  height: calc(100% - 40px);
+  }
+  
+  thead {
+  /* ... (Other styles) ... */
+  position: sticky; /* Make the header sticky */
+  top: 0; /* Stick the header to the top of the container */
+  z-index: 1; /* Ensure the header is above the table body */
+  }
+  #form-2 {
+    display: flex;
+    margin-top:25px;
+    
+}
+
+@media  (max-width: 600px) {
+  /* Adjust the styles for screens with a maximum width of 600px */
+  /* For example, you can stack the form elements vertically */
+  form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+  h2 {
+   text-align:center;
+  }
+  
+  input[type="text"]
+   {
+      width: 100%;
+      margin-bottom:10px;
+  }
+  
+  #search {
+      margin-bottom:10px;
+      width: 100%;
+  }
+  
+  #form-2 {
+      display: grid;
+      
+  }
+  
+  button[type="view All"] {
+      width: 100%;
+      margin-top:-20px;
+  }
+  
+  #export {
+      width: 100%;
+      margin-left:-2px;
+  }
+  
+  }
+
+
+
+
+
+
+
+
+

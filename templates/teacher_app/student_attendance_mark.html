@@ -1,0 +1,86 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block bodyblock %}
+
+<link rel="stylesheet" type="text/css" href="{% static "/admin_apps/registrations/css/details_list.css" %}">
+<script src="{% static "/student/js/teach_list.js" %}"></script> 
+
+
+<style>
+	.card header button {
+    background: transparent;
+    border: 0;
+    font-family: inherit;
+    cursor: pointer;
+    padding-right: 1%;
+}
+	/* Style the Submit Attendance button */
+button[type="submit"] {
+  background-color: #007bff;
+  color: white; 
+  border: none; 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+}
+
+/* Hover effect for the button */
+button[type="submit"]:hover {
+  background-color: #0056b3; 
+}
+
+</style>	
+{% include "base/alert.html" %}
+	{% if res %}	
+		<form method="post" action="{% url 'Student-attendance-confirm' %}">
+		{% csrf_token %}
+	<article class="card">
+		<header>
+		  <div>
+			<div class="buttons">
+				<a href="{% url 'Student-attendance-mark' %}" class="button">Back</a>
+				<button type="submit" class="button">Submit Attendance</button>
+			</div>
+		  </div>
+		</header>		
+		<div class="tables">
+		  <table class="active" id="myTable">
+			<tbody class="active">
+			  
+				  <tr>
+				  <th>#</th>
+					<th>Roll Number</th>
+					<th>Name</th>
+					<th>Action</th>
+				  </tr>
+					{% for i in res %}
+						<tr>
+							<td>{{ forloop.counter }}</td>
+							<td>{{ i.0 }}</td>
+							<td>{{ i.1 }}</td>
+							{% if i.3 == '1' %}
+							<td>
+								<input type="checkbox" name="attendance" value={{i.2}} checked>
+							</td>
+							{% else %}
+							<td>
+								<input type="checkbox" name="attendance" value={{i.2}}>
+							</td>
+							
+							{% endif %}			  		
+						</tr>			  	
+					{% endfor %}
+			</tbody>
+		  </table>
+		  <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+		</div>
+	  </article>
+	  <input type="text" name="cls" value={{cls}} hidden>
+	  <input type="text" name="sec" value={{sec}} hidden>
+	  <input type="text" name="prd" value={{prd}} hidden>
+</form>
+{% endif %}
+{% endblock %}
+

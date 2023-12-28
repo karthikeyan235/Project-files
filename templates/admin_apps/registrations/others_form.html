@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+
+{% block bodyblock %}
+  {% load crispy_forms_tags %}
+  <style>
+    .form1 {
+      background-color: #9babb8;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .container {
+      width: 95%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    }
+    
+    h1,
+    h2 {
+      text-align: center;
+    }
+    
+    form {
+      margin-top: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    
+    input[type='text'],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    button[type='submit'] {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .back-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+    
+    .back-button:hover {
+      background-color: #000000;
+      color: white;
+    }
+    
+    .btn-secondary {
+      background-color: #b2a4ff;
+    }
+  </style>
+
+  <div class="form1">
+    <div class="container">
+      {% include 'base/alert.html' %}
+
+      <div class="container mt-3">
+        <h1>
+          {% if request.resolver_match.url_name == 'others-create' %}
+            CREATE
+          {% else %}
+            UPDATE
+          {% endif %}STAFF{% if request.resolver_match.url_name == 'teacher-create' %}
+            <div>
+              <a href="{% url 'teacher-upload-excel' %}" class="btn btn-secondary">Import</a>
+            </div>
+          {% endif %}
+        </h1>
+        <h2>{{ title }}</h2>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="back-button">Save</button>
+          <a href="{% url 'others-list' %}" class="back-button">Back to List</a>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

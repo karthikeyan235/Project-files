@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/admin_apps/registrations/css/details_list.css' %}" />
+  <script src="{% static '/admin_apps/registrations/js/details_list.js' %}"></script>
+
+  {% include 'base/alert.html' %}
+
+  <article class="card">
+    <header>
+      <div class="buttons">
+        <a href="{% url 'registration' %}" class="button">Back</a>
+        <a href="{% url 'teacher-create' %}" class="button">Create New Teacher</a>
+      </div>
+    </header>
+    <div class="container">
+      <div class="search-container">
+        <input type="text" id="myInput" onkeyup="myFunction(1,2)" class="form-control" placeholder="Search By Name/teacher-id ...." />
+      </div>
+      <div class="export-container">
+        <div class="btn-group">
+          <select class="btn btn-secondary dropdown-toggle" aria-labelledby="dropdownMenuButton" id="exportDropdown" aria-haspopup="true" aria-expanded="false">
+            <option disabled selected>SELECT FORMAT</option>
+            <option value="excel" class="dropdown-item">EXCEL</option>
+            <option value="csv" class="dropdown-item">CSV</option>
+          </select>
+          <button class="btn btn-secondary" onclick="handleExportSelection('teacher',6)" style="border-radius: 10px;">Export</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tables">
+      <table class="active" id="myTable">
+        <tbody class="active">
+          <tr>
+            <th>#</th>
+            <th>NAME</th>
+            <th>TEACHER ID</th>
+            <th>TAG ID</th>
+            <th>MAIL</th>
+            <th>MOBILE NO</th>
+            <th>ACTIONS</th>
+          </tr>
+
+          <tr>
+            {% for teacher in teachers %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ teacher.name|upper }}</td>
+                <td>{{ teacher.teacher_id }}</td>
+                <td>{{ teacher.tag_id }}</td>
+                <td>{{ teacher.email }}</td>
+                <td>{{ teacher.mobno }}</td>
+                <td class="actions">
+                  <a href="{% url 'teacher-detail' teacher.pk %}" class="action-link">View</a>
+                  <a href="{% url 'teacher-update' teacher.pk %}" class="action-link2">Edit</a>
+                  <a href="{% url 'teacher-delete' teacher.pk %}" class="action-link3">Delete</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+      <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+    </div>
+  </article>
+{% endblock %}

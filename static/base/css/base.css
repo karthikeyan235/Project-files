@@ -1,0 +1,91 @@
+body {
+  padding-top: 56px;
+  /* Adjust  based on your app A9907E */
+  background-color: #B2A59B !important;
+}
+
+#navbarDropdown {
+  margin-right: 4rem !important;
+}
+
+
+h1 {
+  font-family: verdana !important;
+  font-weight: bolder !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none !important;
+  color: white;
+}
+
+th {
+  background-color: #427D9D !important;
+  color: white !important;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  font-family: verdana !important;
+  padding: 10px !important;
+}
+
+td {
+  font-family: sans-serif !important;
+  font-weight: lighter !important;
+  padding: 7px !important;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #343a40;
+  /* Navbar background color */
+  padding: 1rem;
+  /* Add padding to navbar */
+}
+
+/* Navbar link styling */
+.navbar-nav .nav-link {
+  color: white !important;
+  /* Link text color */
+}
+
+/* Profile dropdown styling */
+.navbar-nav .dropdown {
+  position: relative;
+}
+
+
+
+/* Profile dropdown menu styling */
+.navbar-nav .dropdown-menu {
+  margin-right: 200px !important;
+  background-color: #1B6B93;
+  /* Dropdown background color */
+  border: none;
+  /* Remove dropdown border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Dropdown box shadow */
+}
+
+/* Styling for dropdown menu items */
+.navbar-nav .dropdown-item {
+  color: white;
+  /* Text color */
+}
+
+/* Hover effect on dropdown items */
+.navbar-nav .dropdown-item:hover {
+  background-color: #A7ECEE;
+  /* Hover background color */
+}
+
+/* Styling for divider between menu items */
+.navbar-nav .dropdown-divider {
+  border-color: #fff;
+  /* Divider color */
+  border-width: 5px;
+}

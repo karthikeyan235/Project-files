@@ -1,0 +1,154 @@
+h3 {
+  text-decoration: underline;
+   }
+form {
+    border:3px solid grey;
+    float:left;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 450px;
+    height:500px;
+    width: 100%;
+    margin-top:3rem;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+  }
+  input[type="text"] {
+    color: black;
+    width: 100%;
+    padding: 10px;
+    border:1px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-family: MD Primer Bold,Rubik,Lato,Lucida Grande,Lucida Sans Unicode,Tahoma,Sans-Serif;
+  }
+ 
+  
+    button[type="submit"] {
+    background-color: #45a049;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  button {
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  input[type="file"]{
+    color: #45a049;
+    background-color:black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .header {
+    background: #344ea2;
+    color: #ffffff;
+    padding: 15px;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+
+
+
+  .success 
+  {
+    color:green;
+    font-size:20px;
+    font-weight:bold;
+    margin-left:30px;
+    margin-top:10px;
+  }
+
+  ::placeholder {
+    color:black;
+    font-weight:bold;
+  }
+
+  .row {
+    display: flex;
+  
+  }
+
+
+
+ @media (max-width: 600px) {
+  
+  form {
+    max-width: 100%;
+    margin-left:-1px;
+  } 
+  .success {
+    font-size:15px;
+    margin-right:15px;
+    
+  }
+}
+ 
+    /* Responsive styles */
+    @media (max-width: 768px){
+      #route-form {
+        max-width: 400px;
+        /* margin: 0 auto; */
+        padding: 20px;
+        box-sizing: border-box;
+        margin-top: 1rem !important;
+      
+      }
+      .cnt{
+        background-color: #9BABB8;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+    
+      input[type="text"],
+      button {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+    }
+    form{
+    opacity: 0; /* Start with 0 opacity to make it invisible */
+    transform: translateY(20px); /* Start with a slight translateY to make it appear below */
+    transition: opacity 0.5s, transform 0.5s; /* Add transitions for opacity and transform */
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    /* Apply the animation to the form */
+  .form-visible {
+    animation: fadeInUp 0.5s forwards; /* Animation forwards keeps the final state after animation */
+  }
+     
+      .cnt{
+        display:flex;
+        justify-content:center;
+        background-color: #9BABB8;
+      }

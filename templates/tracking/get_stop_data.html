@@ -1,0 +1,141 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPryL9hzv3i-FIy-T-hnEtYtZv4hSmrig&callback=initMap"></script>
+    <style>
+
+.cont{
+      background-color: #9babb8;
+      width: 100vw;
+    height: 120vh;
+      margin: 0 auto; /* Center the container horizontally */
+}
+/* Form container */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+/* Form label */
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Form input fields */
+form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Submit button */
+form input[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.tables {
+    flex: 1;
+    background-color: #fff;
+    padding: 10px !important;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+    </style>
+<link rel="stylesheet" type="text/css" href="{% static "/trackingcss/route_live.css" %}">
+<div class="cont"> 
+    <form method="post" action="{% url 'route_stop_view' %}">
+        {% csrf_token %}
+        <label for="route_no">Enter Route No:</label>
+        <input type="text" id="route_no" name="route_no">
+        <input type="submit" value="Submit">
+    </form>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% else %}
+        {% if route_stop_data %}
+        <div class="row">
+            <div class="map-container" id="map"></div>
+          
+            <div class="tables">
+              <div class="card">      
+                <div class="tables">
+                  <table class="active" id="myTable">
+                    <tbody class="active">
+                      <tr>
+                        <th>ROUTE NO</th>
+                        <th>STOP NO</th>
+                        <th>STOP NAME</th>
+                        <th>LATITUDE</th>
+                        <th>LONGITUDE</th>
+                        <th>ACTIONS</th>
+                      </tr>
+                      <!-- Table rows go here -->
+                    </tbody>
+                    <tr>
+                        {% for data in route_stop_data %}
+                        <tr>
+                            <td>{{ data.1 }}</td>
+                            <td>{{ data.2 }}</td>
+                            <td>{{ data.3 }}</td>
+                            <td>{{ data.4 }}</td>
+                            <td>{{ data.5 }}</td>
+                            <td>
+                                {% comment %} <a href="{% url 'edit_stop' data.1 %}">Edit</a> {% endcomment %}
+                                <a href="{% url 'edit_stop' data.1 data.2 %}">Edit</a>
+                                {% comment %} <a href="{% url 'delete_record' data.1 %}">Delete</a> {% endcomment %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        <!-- Add a div to hold the Google Map -->
+        
+
+        <script>
+            function initMap() {
+                // Create a new map centered at a default location (you can adjust this)
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: 12.96315858931821 , lng: 77.5951435084353 },
+                    zoom: 12 // Adjust the zoom level as needed
+                });
+
+                // Loop through your route_stop_data to add markers
+                {% for data in route_stop_data %}
+                    var marker = new google.maps.Marker({
+                        position: { lat: {{ data.4 }}, lng: {{ data.5 }} },
+                        map: map,
+                        title: "{{ data.3 }}" // Marker title
+                    });
+                {% endfor %}
+            }
+        </script>
+        <script>
+            // Initialize the map when the page loads
+            initMap();
+        </script>
+        {% endif %}
+    {% endif %}
+
+    {% endblock  %}
+
+
+    
+
+   

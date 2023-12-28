@@ -1,0 +1,145 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+    
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+      min-height: 90vh;
+      overflow: hidden;
+      font-family: MD Primer Bold, Rubik, Lato, Lucida Grande, Lucida Sans Unicode, Tahoma, Sans-Serif;
+      cursor: pointer;
+    }
+    
+    .card {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 370px;
+      width: 300px;
+      box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    
+    .content {
+      display: flex;
+      flex-direction: column;
+      height: 88%;
+      width: 88%;
+      border-radius: 8px;
+    }
+    h3 {
+      margin-top: 7px;
+      text-align: center;
+    }
+    .content > .top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 25%;
+      background-color: #9babb8;
+      color: black;
+      font-size: 18px;
+      font-weight: bold;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      font-family: MD Primer Bold, Rubik, Lato, Lucida Grande, Lucida Sans Unicode, Tahoma, Sans-Serif;
+    
+      .color {
+        height: 20px;
+        width: 20px;
+        margin-left: 5px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background-color: orange;
+      }
+    }
+    
+    .button-container {
+      display: flex;
+      /* justify-content: space-between; */
+      grid-gap: 30px;
+      flex-direction: column;
+      width: 100%;
+      max-width: 300px;
+      height: 165px;
+      margin-top: 35px;
+    }
+    
+    .button-container a {
+      font-weight: bolder;
+      color: black;
+    }
+    
+    .button {
+      padding: 12px 24px !important;
+      font-size: 16px !important;
+      border: none;
+      border-radius: 5px !important;
+      background-color: #b2a4ff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease !important;
+    }
+    
+    .button:hover {
+      background-color: #e19238;
+    }
+    
+    @media (max-width: 600px) {
+      .middle {
+        padding: 0 20px;
+      }
+    }
+    
+    .cards .card .content:hover {
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+      transform: scale(1.03);
+    }
+    .fa-user-plus {
+      margin-top: -3rem;
+      font-size: 25px;
+    }
+    .fa-edit {
+      margin-top: -3rem;
+      font-size: 25px;
+    }
+  </style>
+  {% include 'base/alert.html' %}
+  <div class="cards">
+    <div class="card">
+      <div class="content">
+        <div class="top">
+          <i class="fas fa-user-plus"></i>
+          <h3>NEW REGISTRATION</h3>
+        </div>
+        <div class="button-container">
+          <a class="button" href="{% url 'student-create' %}"><i class="fas fa-user-graduate"></i> STUDENT</a>
+          <a class="button" href="{% url 'teacher-create' %}"><i class="fas fa-chalkboard-teacher"></i> TEACHER</a>
+          <a class="button" href="{% url 'others-create' %}"><i class="fas fa-users"></i> OTHERS</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="content">
+        <div class="top">
+          <i class="fas fa-edit"></i>
+          <h3>EDIT CURRENT RECORDS</h3>
+        </div>
+        <div class="button-container">
+          <a class="button" href="{% url 'student-list' %}"><i class="fas fa-user-graduate"></i> STUDENT</a>
+          <a class="button" href="{% url 'teacher-list' %}"><i class="fas fa-chalkboard-teacher"></i> TEACHER</a>
+          <a class="button" href="{% url 'others-list' %}"><i class="fas fa-users"></i> OTHERS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

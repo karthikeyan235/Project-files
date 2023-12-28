@@ -1,0 +1,105 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% block bodyblock %}
+  <style>
+    /* CSS for the form container */
+    .form-container {
+      background-color: #f4f4f4;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      margin-top: 2rem !important;
+      width: 95vw;
+      margin: 0 auto;
+    }
+    
+    /* Style the form rows */
+    .row {
+      margin-bottom: 10px;
+    }
+    
+    /* Style the button */
+    button[type='submit'] {
+      background-color: #007bff; /* Choose a color for the submit button */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* Style the button on hover */
+    button[type='submit']:hover {
+      background-color: #0056b3; /* Hover color for the submit button */
+    }
+    
+    /* Style the button-like link */
+    .button-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff; /* Button background color */
+      color: white;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    /* Hover effect */
+    .button-link:hover {
+      background-color: #0056b3; /* Button background color on hover */
+      color: white;
+    }
+    #md {
+      margin-top: 2rem;
+    }
+    h1 {
+      text-align: center;
+    }
+  </style>
+  {% include 'base/alert.html' %}
+
+  <div class="form-container">
+    <h1>
+      {% if gateconfig %}
+        Edit
+      {% else %}
+        Create
+      {% endif %}Gate Configuration
+    </h1>
+    <div class="container mt-3" style="font-size: 14px;">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-4">{{ form.gatereaderid|as_crispy_field }}</div>
+          <div class="col-md-4">{{ form.imei|as_crispy_field }}</div>
+          <div class="col-md-4">{{ form.gatereadername|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">{{ form.simno|as_crispy_field }}</div>
+          <div class="col-md-4">{{ form.ipaddress|as_crispy_field }}</div>
+          <div class="col-md-4">{{ form.ssid|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">{{ form.subnetmask|as_crispy_field }}</div>
+          <div class="col-md-4">{{ form.defaultgateway|as_crispy_field }}</div>
+          <div class="col-md-4">{{ form.routerpassword|as_crispy_field }}</div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">{{ form.lat|as_crispy_field }}</div>
+          <div class="col-md-4">{{ form.lang|as_crispy_field }}</div>
+          <div class="col-md-4" id="md">{{ form.updatestatus|as_crispy_field }}</div>
+        </div>
+        <button type="submit">
+          {% if gateconfig %}
+            Update
+          {% else %}
+            Create
+          {% endif %}
+        </button>
+        <a href="{% url 'gateconfig-list' %}" class="button-link">Back to List</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

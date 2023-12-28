@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% block bodyblock %}
+  <div class="delete-timing-container">
+    <h1>Delete School Special Timing</h1>
+    <p>Are you sure you want to delete the school special timing on {{ date|date:'d-m-Y' }}?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="delete-btn">Yes, delete</button>
+    </form>
+    <a href="{% url 'school-special-timings-list' %}" class="cancel-link">Cancel</a>
+  </div>
+
+  <style type="text/css">
+    /* Add this to your CSS file or style section */
+    
+    .delete-timing-container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 10vh;
+    }
+    
+    .delete-btn {
+      background-color: #dc3545;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+    
+    .delete-btn:hover {
+      background-color: #c82333;
+    }
+    
+    .cancel-link {
+      background-color: #87c4ff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: block;
+      margin-top: 10px;
+      text-decoration: none;
+      text-align: center;
+    }
+    
+    .cancel-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+{% endblock %}

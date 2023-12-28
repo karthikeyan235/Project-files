@@ -1,0 +1,137 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block bodyblock %}
+
+{% include "base/alert.html" %}
+
+<style>
+    .cont {
+  background-color: #9babb8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+}
+     /* Base styles for cards */
+     .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .card {
+            width: 250px; /* Set your desired width */
+            height: 250px; /* Set your desired height */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #777;
+        }
+
+    /* Styles for the circular icons */
+    .icon-circle {
+        width: 80px;
+        height: 80px;
+        background-color: #6ac79d;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        margin: 0 auto; /* Center horizontally */
+    }
+    .icon-circle i{
+        font-size:28px;
+    }
+    .button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-link:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+    /* Media queries for responsiveness */
+    @media (max-width: 768px) {
+        .cont{
+            height: 87rem;
+        }
+        .container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card {
+            margin-bottom: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="cont">
+    <div class="container">
+        <div class="card">
+            <div class="icon-circle">
+                <i class="fas fa-user"></i>
+            </div>
+            <h2>Monthly Report</h2>
+
+            <a href="{% url 'Teacher-month-attendance' %}" class="button-link">Report</a>
+        </div> 
+        <div class="card">
+            <div class="icon-circle">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2>Take Attendance</h2>
+            <a href="{% url 'Student-attendance-mark' %}" class="button-link">Take Attendance</a>
+        </div>
+        
+        <div class="card">
+            <div class="icon-circle">
+                <i class="fas fa-clipboard-list"></i>
+            </div>
+            <h2>Edit Attendance</h2>
+            <a href="{% url 'Period-attendance-edit' %}" class="button-link">Edit Attendance</a>
+        </div>
+        
+        <div class="card">
+            <div class="icon-circle">
+                <i class="fas fa-book"></i>
+            </div>
+            <h2>My Subjects</h2>
+            <a href="{% url 'Teacher-Timetable' %}" class="button-link">View Subjects</a>
+
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

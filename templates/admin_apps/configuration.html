@@ -1,0 +1,235 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+  <style>
+    .main-container {
+      padding: 30px;
+    }
+    .heading {
+      text-align: center;
+    }
+    .heading__title {
+      font-weight: 600;
+      color: white;
+    }
+    .heading__credits {
+      margin: 10px 0px;
+      color: #888888;
+      font-size: 25px;
+      transition: all 0.5s;
+    }
+    .heading__link {
+      text-decoration: none;
+    }
+    .heading__credits .heading__link {
+      color: inherit;
+    }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .card {
+      margin: 8px;
+      padding: 20px;
+      width: 300px;
+      height: 30vh;
+      display: grid;
+      border-radius: 10px;
+      box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+      transition: all 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+      background-color: #95bdff;
+      transform: scale(1.01);
+    }
+    .card__link,
+    .card__exit,
+    .card__icon {
+      position: relative;
+      text-decoration: none;
+      color: black;
+    }
+    .card__link::after {
+      position: absolute;
+      top: 35px;
+      left: 0;
+      content: '';
+      width: 0%;
+      height: 3px;
+      background-color: black;
+      transition: all 0.5s;
+    }
+    .card__link:hover::after {
+      width: 100%;
+    }
+    .card__exit {
+      grid-row: 1/2;
+      justify-self: end;
+    }
+    .card__icon {
+      grid-row: 2/3;
+      font-size: 30px;
+    }
+    .card__title {
+      grid-row: 3/4;
+      font-weight: 400;
+      color: black;
+    }
+    .card__apply {
+      grid-row: 4/5;
+      align-self: center;
+    }
+    .card-1 {
+      background-color: azure;
+    }
+    .card-4 {
+      background-color: azure;
+    }
+    .card-5 {
+      background-color: azure;
+    }
+    .cards:hover > .card:not(:hover) {
+      transform: scale(0.9, 0.9);
+    }
+    .button-link {
+      display: inline-block;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      border: 1px solid #007bff; /* Border color for the button */
+      border-radius: 5px; /* Rounded corners */
+      color: #007bff; /* Text color */
+      background-color: transparent; /* Transparent background */
+      transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    }
+    .button-link:hover {
+      background-color: #007bff; /* Background color on hover */
+      color: #fff; /* Text color on hover */
+    }
+    
+    @media (max-width: 1600px) {
+      .cards {
+        justify-content: center;
+      }
+    }
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 20px;
+      }
+    }
+  </style>
+
+  {% include 'base/alert.html' %}
+
+  <div class="main-container">
+    <div class="heading">
+      <h1 class="heading__title" id="animated-text">CONFIGURATION</h1>
+    </div>
+
+    <div class="cards">
+      <div class="card card-4">
+        <div class="card__icon">
+          <i class="fas fa-chalkboard"></i>
+        </div>
+        <h2 class="card__title">CLASS AND SECTIONS</h2>
+        <p class="card__apply">
+          <a class="card__link" href="{% url 'class-section-list' %}">OPEN <i class="fas fa-arrow-right"></i></a>
+        </p>
+      </div>
+
+      <div class="card card-5">
+        <div class="card__icon">
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <h2 class="card__title">TIME TABLE</h2>
+        <p class="card__apply">
+          <!-- Trigger the modal -->
+          <a class="card__link" href="#" data-toggle="modal" data-target="#exampleModalCenter">OPEN <i class="fas fa-arrow-right"></i></a>
+        </p>
+      </div>
+
+      <div class="card card-1">
+        <div class="card__icon">
+          <i class="fas fa-gift"></i>
+        </div>
+        <h2 class="card__title">HOLIDAYS</h2>
+        <p class="card__apply">
+          <a class="card__link" href="{% url 'holiday-list' %}">OPEN <i class="fas fa-arrow-right"></i></a>
+        </p>
+      </div>
+
+      <div class="card card-4">
+        <div class="card__icon">
+          <i class="fas fa-wifi"></i>
+        </div>
+        <h2 class="card__title">GATE CONFIGURATION</h2>
+        <p class="card__apply">
+          <a class="card__link" href="{% url 'gateconfig-list' %}">OPEN <i class="fas fa-arrow-right"></i></a>
+        </p>
+      </div>
+
+      <div class="card card-1">
+        <div class="card__icon">
+          <i class="fas fa-gift"></i>
+        </div>
+        <h2 class="card__title">PERIOD LIST</h2>
+        <p class="card__apply">
+          <a class="card__link" href="{% url 'list-periods' %}">OPEN <i class="fas fa-arrow-right"></i></a>
+        </p>
+      </div>
+
+      <div class="card card-1">
+        <div class="card__icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h2 class="card__title">SCHOOL TIMINGS</h2>
+        <p class="card__apply">
+          <a class="card__link" href="{% url 'school-timings-list' %}">OPEN <i class="fas fa-arrow-right"></i></a>
+        </p>
+      </div>
+
+      <div class="card card-1">
+        <div class="card__icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <h2 class="card__title">SCHOOL SPECIAL TIMINGS</h2>
+        <p class="card__apply">
+          <a class="card__link" href="{% url 'school-special-timings-list' %}">OPEN <i class="fas fa-arrow-right"></i></a>
+        </p>
+      </div>
+
+      <div class="card card-1">
+        <div class="card__icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <h2 class="card__title">LOGIN ACCOUNTS</h2>
+        <p class="card__apply">
+          <a class="card__link" href="{% url 'login-accounts-list' %}">OPEN <i class="fas fa-arrow-right"></i></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">TIME TABLE</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <a class="button-link" href="{% url 'timetable-list' %}">TIMETABLE LIST <i class="fas fa-arrow-right"></i></a>
+          <a class="button-link" href="{% url 'Class-Timetable' %}">CLASS TIMETABLE <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

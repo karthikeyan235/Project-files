@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/gate_config/css/map.css' %}" />
+  <script src="{% static '/gate_config/js/map.js' %}"></script>
+
+  {% include 'base/alert.html' %}
+
+  <div id="mandiv">
+    <div id="div1">
+      <div id="map"></div>
+    </div>
+    <div id="div2">
+      <table class="ttsrch" id="mytbl">
+        <thead>
+          <tr>
+            <th>Site Name</th>
+            <th>Device ID</th>
+          </tr>
+        </thead>
+        <tbody id="tblinfo"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPryL9hzv3i-FIy-T-hnEtYtZv4hSmrig&callback=initMap" async defer></script>
+{% endblock %}

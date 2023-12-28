@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+
+<link rel="stylesheet" type="text/css" href="{% static "/admin_apps/registrations/css/details_list.css" %}">
+<script src="{% static "/admin_apps/registrations/js/details_list.js" %}"></script>
+      
+
+    <article class="card">
+    
+      <div class="container">
+        <div class="search-container">
+          <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search By Route.No/Route Name ....">
+        </div>
+        
+        <div class="export-container">
+          <div class="btn-group">
+            <select class="btn btn-secondary dropdown-toggle" aria-labelledby="dropdownMenuButton" id="exportDropdown" aria-haspopup="true" aria-expanded="false">
+              <option disabled selected>SELECT FORMAT</option>
+              <option value="excel" class="dropdown-item">EXCEL</option>
+              <option value="csv" class="dropdown-item">CSV</option>
+            </select>
+            <button class="btn btn-secondary" onclick="handleExportSelection('',4)" style="border-radius: 10px;">Export</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tables">
+        <table class="active" id="myTable">
+          <tbody class="active">
+            
+                <tr>
+                  <th>Route Number</th>
+                      <th>Route Name</th>
+                      <th>Vehicle Number</th>
+                      <th>VTS ID</th>
+                      <th >Action</th>
+                </tr>
+               
+                  
+                    {% for route in data %}
+                    <tr>
+                    <td>{{ route.1 }}</td>
+                    <td>{{ route.2 }}</td>
+                    <td>{{ route.3 }}</td>
+                    <td>{{ route.4 }}</td>
+                    <td>
+                     <a href="{% url 'edit_route' route.1 %}"> <button class="btn-danger rounded-3">Edit</button></a>
+                     <a  href="{% url 'delete_route' route.1 %}"> <button onclick="if(confirm('Are you sure to delete this Employee?') === false) event.preventDefault()" class="btn-primary rounded-3">Delete</button></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                    
+                 
+          </tbody>
+        </table>
+        <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+      </div>
+    </article> 
+  
+
+  {% endblock %}
+
+
+
+
+

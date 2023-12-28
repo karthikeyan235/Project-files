@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block bodyblock %}
+  {% include 'base/alert.html' %}
+  <link rel="stylesheet" type="text/css" href="{% static '/teacher_app/css/month_report.css' %}" />
+  {% load crispy_forms_tags %}
+  <div class="container">
+    <form method="POST" class="form">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary" id="btn1">Submit</button>
+    </form>
+
+    <br />
+
+    <div id="calendar"></div>
+  </div>
+
+  {% if result %}
+    <script>
+  var data = [];
+{% for i in result %}
+  data.push('{{ i }}');
+{% endfor %}
+  
+function generateCalendar(month, year) {
+  // Create a new Date object with the specified month and year
+  var date = new Date(year, month - 1, 1);
+
+  // Get the number of days in the specified month
+  var daysInMonth = new Date(year, month, 0).getDate();
+
+  // Get the index of the first day of the month (0-6, where 0 is Sunday)
+  var firstDayIndex = date.getDay();
+
+  // Create an array to hold the calendar HTML
+  var calendar = [];
+
+  // Generate the header row of the calendar
+  calendar.push('<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>');
+
+  // Generate the days of the month
+  var day = 1;
+  for (var i = 0; i < 6; i++) {
+    // Create a new table row
+    calendar.push('<tr>');
+
+    // Populate the row with days of the week
+    for (var j = 0; j < 7; j++) {
+      if (i === 0 && j < firstDayIndex) {
+        // Add empty cells before the first day of the month
+        calendar.push('<td></td>');
+      } else if (day > daysInMonth) {
+        // Add empty cells after the last day of the month
+        calendar.push('<td></td>');
+      } else {
+        var cellContent = '';
+
+        if (data[day - 1] === '-') {
+          cellContent = '<td>' + day + '</td>';
+        } else if (data[day - 1] === 'A') {
+          cellContent = '<td style="background-color: red; color:white;" data-toggle="tooltip">' + day + '</td>';
+        } else if (data[day - 1] === 'WO') {
+          cellContent = '<td style="background-color: blue; color:white;" data-toggle="tooltip" >' + day + '</td>';
+        } else if (data[day - 1] === undefined) {
+          cellContent = '<td>' + day + '</td>';
+        } else if (data[day - 1].length === 5) {
+          cellContent = '<td style="background-color: yellow; color:black;">' + day + '</td>';
+        } else {
+          cellContent = '<td style="background-color: green; color:white;">' + day + '</td>';
+        }
+
+        calendar.push(cellContent);
+        day++;
+      }
+    }
+
+    // Close the table row
+    calendar.push('</tr>');
+
+    // If we have reached the last day of the month, exit the loop
+    if (day > daysInMonth) {
+      break;
+    }
+  }
+
+  // Generate the calendar HTML
+  var html = '<table>' + calendar.join('') + '</table>';
+
+  // Display the calendar on the page
+  document.getElementById('calendar').innerHTML = html;
+
+  // Add click event to each calendar cell
+  var cells = document.getElementsByTagName('td');
+for (var i = 0; i < cells.length; i++) {
+  cells[i].addEventListener('click', function (event) {
+    var clickedDay = event.target.innerHTML;
+    var time = data[clickedDay - 1];
+    if ((time === '-') || (time === undefined)) {
+      event.target.setAttribute('data-toggle', 'tooltip');
+      event.target.setAttribute('data-placement', 'top');
+      event.target.setAttribute('title', 'No time recorded for this day');
+      $(event.target).tooltip('show');
+      console.log('Intime:', intime, 'Outtime:', outtime);
+      
+    } else if((time === 'A')) {
+      var [intime, outtime] = time.split(' - ');
+      event.target.setAttribute('data-toggle', 'tooltip');
+      event.target.setAttribute('data-placement', 'top');
+      event.target.setAttribute('title', 'ABSENT' );
+      $(event.target).tooltip('show');
+      console.log('Intime:', intime, 'Outtime:', outtime);
+    }else if((time === 'WO')) {
+      var [intime, outtime] = time.split(' - ');
+      event.target.setAttribute('data-toggle', 'tooltip');
+      event.target.setAttribute('data-placement', 'top');
+      event.target.setAttribute('title', 'WEEK OFF' );
+      $(event.target).tooltip('show');
+      console.log('Intime:', intime, 'Outtime:', outtime);
+    }
+    
+    else {
+      var [intime, outtime] = time.split(' - ');
+      event.target.setAttribute('data-toggle', 'tooltip');
+      event.target.setAttribute('data-placement', 'top');
+      if(outtime == undefined){
+        event.target.setAttribute('title', 'SINGLE ENTRY ' + intime );
+      }else{
+      event.target.setAttribute('title', 'Intime: ' + intime + ', Outtime: ' + outtime);
+    }
+      $(event.target).tooltip('show');
+      console.log('Intime:', intime, 'Outtime:', outtime);
+    }
+  });
+}
+}
+
+
+
+// Call the function with the desired month and year
+generateCalendar({{month}},{{year}});
+
+</script>
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  {% endif %}
+{% endblock %}

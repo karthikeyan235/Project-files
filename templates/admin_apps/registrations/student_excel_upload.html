@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/admin_apps/registrations/css/student_excel.css' %}" />
+  <script src="{% static '/admin_apps/registrations/js/student_excel.js' %}"></script>
+
+  <div class="container">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        <div class="col-sm-5 mx-auto mb-2">
+          <a href="{% url 'student-create' %}" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+        </div>
+        <h5 style="margin: 0; margin-left: 1rem;">Download excel format and read the below instructions.</h5>
+      </div>
+      <button onclick="generateExcel()" id="btn">
+        <i class="fa-solid fa-arrow-down" style="margin-top: 5px;"></i>
+        Download
+      </button>
+    </div>
+
+    <div class="caution">
+      <details>
+        <summary style="font-weight: bold;">Important Instructions:</summary>
+        <ul>
+          <li>
+            <h6><strong>Before uploading, please verify the correctness of the phone number, as a login account will be created for the provided number.</strong></h6>
+          </li>
+          <li>
+            <h6><strong>Mandatory Fields:</strong> Name, Student ID, Tag ID, Parent Name 1, Parent Relation 1, Mobile No, Email, Class Name, Section.</h6>
+          </li>
+          <li>
+            <h6>Names should consist of <b>alphabetic characters and spaces</b> only.</h6>
+          </li>
+          <li>
+            <h6>For the <strong>gender</strong> field, use <strong>M</strong> for Male, <strong>F</strong> for Female, or <strong>O</strong> for Other.</h6>
+          </li>
+          <li>
+            <h6>For the <strong>parent relationship</strong> field, use <strong>M</strong> for Mother, <strong>F</strong> for Father, or <strong>G</strong> for Guardian.</h6>
+          </li>
+          <li>
+            <h6>Enter the date in Excel as <strong>MM/DD/YYYY</strong>.</h6>
+          </li>
+          <li>
+            <h6>Provide only registered <strong>Class Name</strong> and <strong>Section</strong>.</h6>
+          </li>
+          <li>
+            <h6>Provide only registered <strong>Route number</strong> and <strong>Stop number</strong>.</h6>
+          </li>
+          <li>
+            <h6><b>Tag ID</b> should be 10 digits.</h6>
+          </li>
+          <li>
+            <h6><b>Student ID</b> should be unique.</h6>
+          </li>
+          <li>
+            <h6>Ensure that the header values match exactly as listed above in your Excel file.</h6>
+          </li>
+        </ul>
+      </details>
+    </div>
+  </div>
+
+  <div class="wrapp">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>{{ message }}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="container">
+      <h4>UPLOAD STUDENT DATA</h4>
+      <div class="card">
+        <div class="card-content">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">{{ form|crispy }}</div>
+            <button class="card-button" type="submit">Upload</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

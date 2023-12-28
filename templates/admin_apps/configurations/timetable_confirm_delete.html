@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% block bodyblock %}
+  <style>
+    .container {
+      width: 95%;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+      background-color: #9babb8;
+      margin-top: 5rem;
+      max-width: 97vw !important;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    .confirmation-box {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .confirmation-box p {
+      margin: 10px 0;
+    }
+    form {
+      display: inline-block;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0 5px;
+    }
+    .btn-danger {
+      background-color: #dc3545;
+      color: white;
+    }
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+  </style>
+  {% include 'base/alert.html' %}
+
+  <div class="container">
+    <div class="confirmation-box">
+      <h2>Confirm Deletion</h2>
+      <p>Are you sure you want to delete the timetable entry for "{{ timetable }}"?</p>
+    </div>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Confirm Delete</button>
+      <a href="{% url 'timetable-list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

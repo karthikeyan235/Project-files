@@ -1,0 +1,269 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+    <style>
+        .cont{
+      background-color: #9babb8;
+      width: 100vw;
+      height: 100vh;
+      margin: 0 auto; 
+}
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+/* Style for the map container */
+.map-container {
+ flex: 1;
+ width: 100%;
+ height: 550px;
+ margin-bottom: 20px; /* Adjust margin as needed */
+ }
+/* Container styles */
+.container {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* Map container styles */
+.map-container {
+  flex: 1;
+  min-width: 50%; /* Adjust this value as needed */
+  background-color: #f0f0f0; /* Example background color for the map container */
+  /* Add any other map styling here */
+}
+
+/* Form container styles */
+.form-container {
+  flex: 1;
+  padding: 20px; /* Add spacing as needed */
+  min-width: 50%; /* Adjust this value as needed */
+  background-color: #fff; /* Example background color for the form container */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+/* Media query for phone view */
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack items vertically */
+  }
+  .map-container,
+  .form-container {
+    flex: auto; /* Expand to full width on smaller screens */
+    min-width: auto; /* Remove min-width on smaller screens */
+  }
+}
+
+/* Form styles */
+#table-form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Hidden input styles */
+#table-data {
+  display: none; /* Hide the input field */
+}
+
+/* Submit button styles */
+#table-form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  #table-form {
+    margin-top: 10px; /* Reduce margin on smaller screens */
+  }
+  #table-form button[type="submit"] {
+    font-size: 14px;
+  }
+}
+
+
+/* Style the form */
+#myForm {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Style form groups */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Style input fields */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+/* Style the submit button */
+.submit-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style the table */
+#data-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+/* Style table headers */
+#data-table th {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+/* Style table rows */
+#data-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Style the form below the table */
+#table-form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Style the submit button for the form below the table */
+#table-form button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  #myForm {
+    max-width: 100%;
+  }
+  .form-container {
+    align-items: flex-start;
+  }
+  #data-table {
+    font-size: 14px;
+  }
+  #table-form button[type="submit"] {
+    font-size: 14px;
+  }
+}
+.message {
+        background-color: #28a745; /* Success message background color */
+        color: #fff; /* Text color for success message */
+        padding: 8px;
+        border-radius: 5px;
+        text-align: center;
+        margin-top: 20px; /* Add spacing at the top */
+
+    }
+
+    .success {
+        font-weight: bold;
+    }
+
+    </style>
+<div class="cont">
+
+  <div class="message">
+    {% if message %}
+    <p class="success" id="success">{{ message }}</p>
+    {% endif %}
+</div>
+    <div class="container">
+        <div class="map-container" id="map-container"></div>
+        <div class="form-container">
+            <div id="myForm">
+                <form id="route-form" method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="routeNumber">Route Number:</label>
+                        <input type="text" id="routeNumber" name="route_no" pattern="[0-9]+" title="Please enter only numeric characters for the Route Number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="latitude">Latitude:</label>
+                        <input type="number" step="any" id="latitude" name="latitude" placeholder="Latitude" required pattern="^(-?)([0-9]|[1-8][0-9]|90)(\.[0-9]{1,6})?$">
+                    </div>
+                    <div class="form-group">
+                        <label for="longitude">Longitude:</label>
+                        <input type="number" step="any" id="longitude" name="longitude"  pattern="^-?((\d{1,3})|(\d{1,3}\.\d{1,6}))$" title="Please enter a valid longitude (up to 6 decimal places allowed)" placeholder="Longitude" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stopname">Stop Name:</label>
+                        <input type="text" id="stopname" name="stop_name" pattern="[A-Za-z0-9\s]+" title="Please enter alphanumeric characters and spaces only" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stopNumber">Stop Number:</label>
+                        <input type="text" id="stopNumber" name="stop_no" pattern="[0-9]+" title="Please enter a valid numeric stop number" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var map;
+        var markers = []; // Array to store markers
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map-container'), {
+                center: { lat: 12.935005214130976, lng: 77.6237724742569},
+                zoom: 12
+            });
+
+            map.addListener('click', function(event) {
+                addMarker(event.latLng);
+            });
+        }
+
+        function addMarker(location) {
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+            markers.push(marker);
+
+            // Update latitude and longitude fields in the form
+            document.getElementById('latitude').value = location.lat();
+            document.getElementById('longitude').value = location.lng();
+        }
+
+        google.maps.event.addDomListener(window, 'load', initMap);
+        
+    </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPryL9hzv3i-FIy-T-hnEtYtZv4hSmrig&callback=initMap"></script>
+</div>
+{% endblock  %}

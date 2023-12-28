@@ -1,0 +1,118 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block bodyblock %}
+
+<link rel="stylesheet" type="text/css" href="{% static "/admin_apps/student_attendance/css/month_report.css" %}">
+<script src="{% static "/admin_apps/student_attendance/js/month_report.js" %}"></script> 
+
+{% include "base/alert.html" %}
+<style>
+	td input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+	@media (max-width: 767px){
+#myTable {
+    width: 100%;
+}
+
+	}
+	.table-responsive {
+    width: 100%;
+    height: 450px;
+    overflow: auto;
+}
+.col-md-3 {
+    margin-bottom: 0;
+}
+.col-md-12{
+	display: flex;
+	justify-content: center;
+}
+.row {
+    grid-gap: 0;
+}
+.form-group {
+    margin-right: 10px;
+    margin-top: 0;
+}
+.btn-group{
+	margin-top: 2rem;
+}
+</style>
+
+
+
+{% if res %}
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+	  <div class="row">
+		<!-- Second Column -->
+		
+		<!-- First Column -->
+		<div class="col-md-6 float-right">
+		  <div class="input-group">
+			<form method="post" action="{% url 'Period-attendance-edit-confirm' %}">
+			  {% csrf_token %}
+			  <button type="submit">Submit changes</button>
+
+		  </div>
+		</div>
+	  </div>
+	  
+	  
+	</div>
+	
+	<div class="card-body">
+	  <div class="table-responsive">
+		<table id="myTable" class="table-bordered" >
+		<tr>
+			<th>Roll no</th>
+			<th>Name</th>
+			<th>{{period}}</th>
+			<th>Edit</th>
+			
+		</tr>
+		{% for i in res %}
+		<tr>
+			{% for j in i %}
+			    {% if forloop.counter > 3 %}
+			    	{% if j == '1' %}
+			    		<td style="background-color:lightgreen">P</td>
+			    	{% elif j == '0' %}
+			    		<td style="background-color:lightblue">A</td>
+			    	{% else %}
+			    		<td style="background-color:#FA7070">A</td>
+			    	{% endif %}
+
+
+			    {% else %}
+			    	{% if forloop.counter != 3 %}
+			    		<td>{{j}}</td>			    		
+			    	{% endif %}				    
+			    {% endif %}
+			{% endfor %}
+			<td><input type="checkbox" name="attendance" {% if i.3 == '1' %} checked {% endif %} value={{i.2}}></td>
+		</tr>
+		{% endfor %}
+	</table>
+	<p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+			<input type="text" name="cls" value={{cls}} hidden>
+			<input type="text" name="sec" value={{sec}} hidden>
+			<input type="text" name="prd" value={{prd}} hidden>
+			<input type="text" name="dt" value={{date}} hidden>
+	</form>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+	
+{% endif %}
+{% endblock %}

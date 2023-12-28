@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/admin_apps/student_attendance/css/month_report.css' %}" />
+  <script src="{% static '/admin_apps/student_attendance/js/month_report.js' %}"></script>
+
+  {% include 'base/alert.html' %}
+  <style>
+    td input[type='checkbox'] {
+      width: 20px;
+      height: 20px;
+    }
+    
+    @media (max-width: 767px) {
+      #myTable {
+        width: 100%;
+      }
+    }
+    .table-responsive {
+      width: 100%;
+      height: 450px;
+      overflow: auto;
+    }
+    .col-md-3 {
+      margin-bottom: 0;
+    }
+    .col-md-12 {
+      display: flex;
+      justify-content: center;
+    }
+    .row {
+      grid-gap: 0;
+    }
+    .form-group {
+      margin-right: 10px;
+      margin-top: 0;
+    }
+    .btn-group {
+      margin-top: 2rem;
+    }
+  </style>
+
+  <form method="post" class="my-form">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">{{ form.class_name|as_crispy_field }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">{{ form.section|as_crispy_field }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">{{ form.period_list|as_crispy_field }}</div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">{{ form.date|as_crispy_field }}</div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock %}

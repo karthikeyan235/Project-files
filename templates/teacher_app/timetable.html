@@ -1,0 +1,44 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/admin_apps/registrations/css/details_list.css' %}" />
+  <script src="{% static '/student/js/teach_list.js' %}"></script>
+
+  {% include 'base/alert.html' %}
+
+  <article class="card">
+    <header>
+      <div>
+        <div class="buttons">
+          <a href="{% url 'Teacher-homepage' %}" class="button">Back</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="tables">
+      <table class="active" id="myTable">
+        <tbody class="active">
+          <tr>
+            <th>WEEK</th>
+            <th>CLASS</th>
+            <th>SECTION</th>
+            <th>PERIOD</th>
+            <th>START TIME</th>
+            <th>END TIME</th>
+          </tr>
+
+          <tr>
+            {% for i in res %}
+              <tr>
+                {% for j in i %}
+                  <td>{{ j }}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+      <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+    </div>
+  </article>
+{% endblock %}

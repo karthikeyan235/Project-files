@@ -1,0 +1,109 @@
+{% extends 'base/base.html' %}
+
+{% block bodyblock %}
+  <style>
+    /* CSS for the gate config detail container */
+    .gate-config-detail {
+      background-color: #f8f9fa; /* Background color */
+      border: 1px solid #ddd; /* Border style */
+      border-radius: 5px; /* Rounded corners */
+      padding: 20px; /* Spacing inside the container */
+      max-width: 600px; /* Set a maximum width */
+      margin: 0 auto; /* Center the container horizontally */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+      margin-top: 1rem;
+    }
+    
+    /* CSS for the table */
+    .table {
+      width: 100%; /* Table takes full width of its container */
+      border-collapse: collapse; /* Remove spacing between table cells */
+    }
+    
+    /* CSS for table header cells */
+    th {
+      background-color: #007bff; /* Header background color */
+      color: rgb(0, 0, 0); /* Header text color */
+    }
+    
+    /* CSS for table cells */
+    td {
+      border-collapse: collapse;
+      padding: 0px; /* Spacing inside table cells */
+    }
+    
+    /* CSS for the "Back to List" button */
+    .btn-primary {
+      background-color: #007bff; /* Button background color */
+      color: white; /* Button text color */
+      border: none; /* Remove button border */
+      border-radius: 5px; /* Rounded corners */
+      padding: 10px 20px; /* Spacing inside the button */
+      text-decoration: none; /* Remove underlines */
+      display: inline-block; /* Make it inline */
+    }
+    
+    /* CSS for the button on hover */
+    .btn-primary:hover {
+      background-color: #0056b3; /* Hover color for the button */
+    }
+  </style>
+
+  {% include 'base/alert.html' %}
+
+  <div class="container">
+    <div class="gate-config-detail">
+      <h1>Gate Reader Detail</h1>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>Gate Reader ID:</th>
+            <td>{{ gateconfig.gatereaderid }}</td>
+          </tr>
+          <tr>
+            <th>IMEI:</th>
+            <td>{{ gateconfig.imei }}</td>
+          </tr>
+          <tr>
+            <th>Gate Reader Name:</th>
+            <td>{{ gateconfig.gatereadername }}</td>
+          </tr>
+          <tr>
+            <th>SIM NO:</th>
+            <td>{{ gateconfig.simno }}</td>
+          </tr>
+          <tr>
+            <th>IPADDRESS:</th>
+            <td>{{ gateconfig.ipaddress }}</td>
+          </tr>
+          <tr>
+            <th>SSID:</th>
+            <td>{{ gateconfig.ssid }}</td>
+          </tr>
+          <tr>
+            <th>SUBNET MASK:</th>
+            <td>{{ gateconfig.subnetmask }}</td>
+          </tr>
+          <tr>
+            <th>DEFAULT GATEWAY:</th>
+            <td>{{ gateconfig.defaultgateway }}</td>
+          </tr>
+          <tr>
+            <th>ROUTER PASSWORD:</th>
+            <td>{{ gateconfig.routerpassword }}</td>
+          </tr>
+          <tr>
+            <th>LATTITUDE:</th>
+            <td>{{ gateconfig.lat }}</td>
+          </tr>
+          <tr>
+            <th>LANGITUDE:</th>
+            <td>{{ gateconfig.lang }}</td>
+          </tr>
+          <!-- Add other fields here -->
+        </tbody>
+      </table>
+      <a href="{% url 'gateconfig-list' %}" class="btn btn-primary">Back to List</a>
+    </div>
+  </div>
+{% endblock %}

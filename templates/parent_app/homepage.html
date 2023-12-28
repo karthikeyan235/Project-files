@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+  <style>
+    .gradient-custom {
+      /* fallback for old browsers */
+      background: #f6d365;
+    
+      /* Chrome 10-25, Safari 5.1-6 */
+      background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+    
+      /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+    }
+    /* Container for the button */
+    .shape {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    
+      background-color: #007bff; /* Background color for the shape */
+      border-radius: 50%; /* Creates a circular shape */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Adds a shadow */
+      clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
+      position: relative; /* Position relative for positioning the button */
+      width: 300px; /* Adjust the width and height as needed */
+      height: 300px;
+      background-image: url('https://cdn.dribbble.com/users/1244169/screenshots/4494753/attendance_final.gif'); /* URL to your GIF */
+      background-size: cover; /* Cover the entire div with the background */
+      background-repeat: no-repeat; /* Prevent background repetition */
+    }
+    #shape2 {
+      background-image: url('https://www.trackschoolbus.com/wp-content/themes/trackschoolbus/images/7_driver.gif'); /* URL to your GIF */
+      background-size: cover; /* Cover the entire div with the background */
+      background-repeat: no-repeat; /* Prevent background repetition */
+    }
+    
+    /* Fabulous button styles */
+    .fabulous-button {
+      background-color: white; /* Button background color */
+      color: black; /* Text color */
+      padding: 12px 25px; /* Adjust padding as needed */
+      border: none;
+      border-radius: 5px;
+      font-size: 18px; /* Adjust font size as needed */
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth hover effect */
+      margin-top: 11rem;
+    
+      /* Add more CSS styles as desired for a fabulous look */
+    }
+    
+    .fabulous-button:hover {
+      background-color: white; /* Hover color */
+      color: black;
+    }
+    /* Styles for the shapes container */
+    .shapes {
+      align-items: center;
+      background-color: #f5f5f5; /* Background color for the container */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      grid-gap: 2rem;
+    }
+    
+    /* Styles for each individual shape div */
+    .shape {
+      text-align: center;
+    }
+    .py-5 {
+      padding-top: 1rem !important;
+    }
+  </style>
+  {% include 'base/alert.html' %}
+  <section class="vh-100" style="background-color: #9babb8;;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="shapes">
+          <div class="shape">
+            <a href="{% url 'Student-month-attendance' %}" class="fabulous-button"><i class="fas fa-calendar"></i> Attendance</a>
+          </div>
+          <div class="shape" id="shape2">
+            <a href="{% url 'route_location' %}" class="fabulous-button"><i class="fas fa-bus"></i> Bus tracking</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

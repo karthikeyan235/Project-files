@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Route Location Data</title>
+    <style>
+    
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        h2 {
+            color: #333;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #0074D9;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .marker-icon {
+            icon: '</style>
+  </head>
+  <body>
+    <h1>Route Location Data</h1>
+
+    <!-- Input Field for Route No -->
+    {% comment %} <form method="POST">
+      {% csrf_token %}
+      <label for="route_no">Enter Route No:</label>
+      <input type="text" id="route_no" name="route_no" />
+      <button type="submit">Submit</button>
+    </form> {% endcomment %}
+    {% if error_message %}
+      <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+
+    {% if results %}
+      <!-- Route Stop Data Table -->
+      <h2>Route Stop Data</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Route No</th>
+            <th>Stop No</th>
+            <th>Stop Name</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in results.route_stop_data %}
+            <tr>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+              <td>{{ row[4] }}</td>
+              <td>{{ row[5] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Trackdata Table -->
+      <h2>Trackdata</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Speed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in results.route_track_data %}
+            <tr>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <!-- Map Div -->
+      <div id="map" style="height: 400px; width: 100%;"></div>
+
+      <!-- JavaScript for Google Maps and Markers -->
+      <script>
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 12.96315858931821, lng: 77.5951435084353 },
+                zoom: 10
+            });
+
+            // Route Stop Data Markers (Red)
+            var routeStopData = [
+                // Sample data for Route Stop Data
+                {% for row in results.route_stop_data %}
+                {
+                    latitude: {{ row.4 }},
+                    longitude: {{ row.5 }},
+                    stop_name: "{{ row.3 }}"
+                },
+                {% endfor %}
+            ];
+
+            for (var i = 0; i < routeStopData.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: { lat: parseFloat(routeStopData[i].latitude), lng: parseFloat(routeStopData[i].longitude) },
+                    map: map,
+                    title: routeStopData[i].stop_name,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                });
+            }
+
+            // Trackdata Markers (Green)
+            var trackData = [
+                // Sample data for Trackdata
+                {% for row in results.route_track_data %}
+                {
+                    latitude: {{ row.1 }},
+                    longitude: {{ row.2 }},
+                    speed: {{ row.3 }}
+                },
+                {% endfor %}
+            ];
+
+            for (var j = 0; j < trackData.length; j++) {
+                var marker = new google.maps.Marker({
+                    position: { lat: parseFloat(trackData[j].latitude), lng: parseFloat(trackData[j].longitude) },
+                    map: map,
+                    title: 'Speed: ' + trackData[j].speed,
+                    icon: {
+                        url: 'https://img.icons8.com/?size=32&id=80384&format=png', // URL to your custom icon
+                        scaledSize: new google.maps.Size(40, 40) // Adjust the size here (width, height)
+                    }
+                });
+            }
+        }
+
+        // Automatically refresh the page every 30 seconds
+        setTimeout(function () {
+            location.reload();
+        }, 30000); // 30 seconds
+    </script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPryL9hzv3i-FIy-T-hnEtYtZv4hSmrig&callback=initMap" async defer></script>
+    {% endif %}
+  </body>
+</html>

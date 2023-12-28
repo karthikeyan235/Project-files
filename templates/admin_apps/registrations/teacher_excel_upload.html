@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/admin_apps/registrations/css/student_excel.css' %}" />
+  <script src="{% static '/admin_apps/registrations/js/teacher_excel.js' %}"></script>
+
+  <div class="container">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center;">
+        <div class="col-sm-5 mx-auto mb-2">
+          <a href="{% url 'teacher-create' %}" class="back-button"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+        </div>
+        <h5 style="margin: 0; margin-left: 1rem;">Download excel format and read the below instructions.</h5>
+      </div>
+      <button onclick="generateExcel()" id="btn">
+        <i class="fa-solid fa-arrow-down" style="margin-top: 5px;"></i>
+        Download
+      </button>
+    </div>
+    <div class="caution">
+      <details>
+        <summary style="font-weight: bolder;">Important Instructions:</summary>
+        <ul>
+          <li>
+            <h6><b>Mandatory Fields:</b> Name,Teacher ID,Tag ID,Email.</h6>
+          </li>
+          <li>
+            <h6>Ensure that the header values match exactly as listed above in your Excel file.</h6>
+          </li>
+          <li>
+            <h6>
+              <p>
+                Enter the gender in Excel as <strong>M</strong> for Male, <strong>F</strong> for Female, or <strong>O</strong> for Other.
+              </p>
+            </h6>
+          </li>
+        </ul>
+      </details>
+    </div>
+  </div>
+
+  <div class="wrapp">
+    {% include 'base/alert.html' %}
+
+    <div class="container">
+      <h4>UPLOAD TEACHER DATA</h4>
+      <div class="card">
+        <div class="card-content">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">{{ form|crispy }}</div>
+            <button class="card-button" type="submit">Upload</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

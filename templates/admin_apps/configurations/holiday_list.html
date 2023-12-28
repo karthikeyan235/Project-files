@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/admin_apps/registrations/css/details_list.css' %}" />
+  <script src="{% static '/admin_apps/registrations/js/details_list.js' %}"></script>
+
+  {% include 'base/alert.html' %}
+
+  <article class="card">
+    <header>
+      <div>
+        <div class="buttons">
+          <a href="{% url 'adminconfig_homepage' %}" class="button">Back</a>
+          <a href="{% url 'holiday-create' %}" class="button">Create New Holiday</a>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="search-container">
+        <input type="text" id="myInput" onkeyup="myFunction(1,2)" class="form-control" placeholder="Search By Name/Code ...." />
+      </div>
+      <div class="export-container">
+        <div class="btn-group">
+          <select class="btn btn-secondary dropdown-toggle" aria-labelledby="dropdownMenuButton" id="exportDropdown" aria-haspopup="true" aria-expanded="false">
+            <option disabled selected>SELECT FORMAT</option>
+            <option value="excel" class="dropdown-item">EXCEL</option>
+            <option value="csv" class="dropdown-item">CSV</option>
+          </select>
+          <button class="btn btn-secondary" onclick="handleExportSelection('holiday',5)" style="border-radius: 10px;">Export</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tables">
+      <table class="active" id="myTable">
+        <tbody class="active">
+          <tr>
+            <th>#</th>
+            <th>HOLIDAY NAME</th>
+            <th>HOLIDAY CODE</th>
+            <th>FROM DATE</th>
+            <th>TO DATE</th>
+            <th>ACTIONS</th>
+          </tr>
+
+          <tr>
+            {% for holiday in holidays %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ holiday.holiday_name }}</td>
+                <td>{{ holiday.holiday_code }}</td>
+                <td>{{ holiday.from_date }}</td>
+                <td>{{ holiday.to_date }}</td>
+                <td>
+                  <a href="{% url 'holiday-update' holiday.pk %}" class="action-link">Edit</a>
+                  <a href="{% url 'holiday-delete' holiday.pk %}" class="action-link3">Delete</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+      <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+    </div>
+  </article>
+{% endblock %}

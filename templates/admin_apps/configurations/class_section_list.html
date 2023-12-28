@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block bodyblock %}
+  <link rel="stylesheet" type="text/css" href="{% static '/admin_apps/registrations/css/details_list.css' %}" />
+  <script src="{% static '/admin_apps/registrations/js/details_list.js' %}"></script>
+  {% include 'base/alert.html' %}
+
+  <article class="card">
+    <header>
+      <div>
+        <div class="buttons">
+          <a href="{% url 'adminconfig_homepage' %}" class="button">Back</a>
+          <a href="{% url 'class-section-create' %}" class="button">Create New Class Section</a>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="search-container">
+        <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search By class ...." />
+      </div>
+
+      <div class="export-container">
+        <div class="btn-group">
+          <select class="btn btn-secondary dropdown-toggle" aria-labelledby="dropdownMenuButton" id="exportDropdown" aria-haspopup="true" aria-expanded="false">
+            <option disabled selected>SELECT FORMAT</option>
+            <option value="excel" class="dropdown-item">EXCEL</option>
+            <option value="csv" class="dropdown-item">CSV</option>
+          </select>
+          <button class="btn btn-secondary" onclick="handleExportSelection('classsection',2)" style="border-radius: 10px;">Export</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tables">
+      <table class="active" id="myTable">
+        <tbody class="active">
+          <tr>
+            <th>CLASS</th>
+            <th>SECTIONS</th>
+            <th>ACTIONS</th>
+          </tr>
+
+          <tr>
+            {% for class_section in class_sections %}
+              <tr>
+                <td>{{ class_section.class_number }}</td>
+                <td>{{ class_section.section }}</td>
+                <td class="action-buttons">
+                  <a href="{% url 'class-section-delete' class_section.pk %}" class="action-link3">Delete</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tr>
+        </tbody>
+      </table>
+      <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+    </div>
+  </article>
+{% endblock %}

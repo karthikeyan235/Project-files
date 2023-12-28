@@ -1,0 +1,162 @@
+
+{% extends "base/base.html" %}
+{% load static %}
+{% block bodyblock %}
+
+<style>
+ .cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 90vh;
+  overflow: hidden;
+  font-family: MD Primer Bold,Rubik,Lato,Lucida Grande,Lucida Sans Unicode,Tahoma,Sans-Serif;
+  cursor: pointer;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 290px;
+  width: 300px;
+  background: linear-gradient(#C4DFDF, #D2E9E9,#E3F4F4,#ECF9FF);
+  box-shadow: 0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12);
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.card a{
+  text-align: center;
+  color: white;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 88%;
+  width: 88%;
+  background-color: white;
+  border-radius: 8px;
+}
+h3{
+  margin-top: 7px;
+  text-align: center;
+ }
+.content > .top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25%;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-family: MD Primer Bold,Rubik,Lato,Lucida Grande,Lucida Sans Unicode,Tahoma,Sans-Serif;
+  
+
+  
+  .color {
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: orange;
+  }
+}
+
+
+.button-container {
+    display: flex;
+    /* justify-content: space-between; */
+    grid-gap: 30px;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin-top: 15px;
+}
+
+.button {
+  padding: 12px 24px !important;
+  font-size: 16px !important;
+  border: none;
+  border-radius: 5px !important;
+  background-color: #B2A4FF;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease !important;
+}
+
+.button:hover {
+  background-color: #E19238;
+}
+
+
+@media (max-width: 600px) {
+  .middle {
+    padding: 0 20px;
+  }
+}
+
+.cards .card .content:hover{
+    box-shadow: 0 10px 15px rgba(0,0,0,.3);
+    transform: scale(1.03);
+}
+.circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 1rem;
+}
+#img1{
+  width: 120px;
+  height: 120px;
+}
+#img2{
+  height: 120px;
+}
+#img3{
+  height: 120px;
+}
+
+</style>
+{% include "base/alert.html" %}
+<div class="cards">
+        <div class="card">
+        <div class="content">
+            <div class="top">
+                <h3>STUDENTS</h3>                     
+              </div>
+              <div class="circle"> <img src="https://clipart-library.com/images/qTBAkpzEc.png" id="img1" alt="LOGO" ></div> 
+              <div class="button-container">
+                <a class="button" href="{% url 'student_attendance' %}">OPEN</a>
+              </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="content">
+            <div class="top">
+                <h3>TEACHERS</h3>       
+              </div>
+              <div class="circle"> <img src="https://img.freepik.com/free-vector/cute-woman-teacher-character-cartoon-art-illustration_56104-780.jpg?w=900&t=st=1693981365~exp=1693981965~hmac=7ef3059f94a777942a2df80fe76d0046e3f89a63a0d54b7e9fcb61e40b51bd97" id="img2" alt="LOGO"></div>
+              <div class="button-container">
+                <a class="button" href="{% url 'teacher_attendance' %}">OPEN</a>
+              </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="content">
+            <div class="top">
+                <h3>OTHERS</h3>       
+              </div>
+              <div class="circle"> <img src="https://image.shutterstock.com/image-vector/set-diverse-business-people-isolated-260nw-283733969.jpg" id="img3" alt="LOGO"></div>
+              <div class="button-container">
+                <a class="button" href="{% url 'staff_attendance' %}">OPEN</a>
+              </div>
+        </div>
+      </div>
+  {% endblock %}

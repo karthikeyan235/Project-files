@@ -1,0 +1,105 @@
+{% extends 'base/base.html' %}
+{% block bodyblock %}
+  <div class="special-timings-list-container">
+    <h1>School Special Timings List</h1>
+    <a href="{% url 'school-special-timings-create' %}" class="create-link">Create</a>
+    <div class="table">
+      <table class="timings-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for timing in special_timings_list %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ timing.date }}</td>
+              <td>{{ timing.start_time|time:'g:i A' }}</td>
+              <td>{{ timing.end_time|time:'g:i A' }}</td>
+              <td>
+                <a href="{% url 'school-special-timings-update' pk = timing.pk %}" class="update-link">Update</a>
+                <a href="{% url 'school-special-timings-delete' pk = timing.pk %}" class="delete-link">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <style type="text/css">
+    /* Add this to your CSS file or style section */
+    
+    .special-timings-list-container {
+      max-width: 100%;
+      margin: auto;
+      padding: 20px;
+      background-color: white;
+    }
+    h1 {
+      text-align: center;
+    }
+    .create-link {
+      max-width: 100px;
+      display: block;
+      margin-bottom: 15px;
+      text-decoration: none;
+      background-color: #007bff;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+    .table {
+      width: 100vw;
+      max-height: 70vh;
+      overflow: scroll;
+    }
+    
+    .create-link:hover {
+      background-color: #0056b3;
+      cursor: pointer;
+      color: white;
+    }
+    
+    .timings-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      height: 50% !important;
+    }
+    
+    .timings-table th,
+    .timings-table td {
+      text-align: left;
+    }
+    
+    .timings-table th {
+      background-color: #9eddff;
+    }
+    
+    .update-link,
+    .delete-link {
+      display: inline-block;
+      margin-right: 10px;
+      text-decoration: none;
+      padding: 5px 5px;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      color: #007bff;
+    }
+    
+    .update-link:hover,
+    .delete-link:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #d9f4f7;
+    }
+  </style>
+{% endblock %}

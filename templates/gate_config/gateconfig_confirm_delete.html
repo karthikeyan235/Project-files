@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% block bodyblock %}
+  <style>
+    .cont {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    /* CSS for the confirmation container */
+    .confirmation-container {
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      text-align: center;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    /* CSS for the cancel link */
+    .cancel-link {
+      display: block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #007bff; /* You can change this to your preferred link color */
+    }
+    
+    /* Style the button */
+    button[type='submit'] {
+      background-color: #dc3545; /* Choose a color for the delete button */
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* Style the button on hover */
+    button[type='submit']:hover {
+      background-color: #c82333; /* Hover color for the delete button */
+    }
+  </style>
+  {% include 'base/alert.html' %}
+  <div class="cont">
+    <div class="confirmation-container">
+      <h1>Confirm Delete</h1>
+      <p>Are you sure you want to delete "{{ gateconfig.gatereaderid }}"?</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+      </form>
+      <a href="{% url 'gateconfig-list' %}" class="cancel-link">Cancel</a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block bodyblock %}
+  {% include 'base/alert.html' %}
+  <style>
+    .cont {
+      background-color: #9babb8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 94vh;
+    }
+    /* Style the form container */
+    .container {
+      text-align: center;
+    }
+    form {
+      width: 50%;
+      margin: 0 auto;
+    }
+    .container {
+      padding: 20px;
+    }
+    input {
+      width: 50%;
+      display: block;
+      margin-bottom: 10px;
+    }
+    button {
+      width: 100%;
+      display: block;
+      margin-top: 10px;
+    }
+    /* Style the form */
+    form {
+      display: inline-block;
+      background-color: #f0f0f0;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Style the select boxes */
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      background-color: #fff;
+      font-size: 16px;
+    }
+    
+    /* Style the submit button */
+    button[type='submit'] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    /* Style the submit button on hover */
+    button[type='submit']:hover {
+      background-color: #0056b3;
+    }
+    
+    /* Style the options in the select boxes */
+    option {
+      font-size: 16px;
+    }
+    
+    /* Style the required field indicator (asterisk) */
+    select[required]::after {
+      content: '*';
+      color: red;
+      margin-left: 5px;
+    }
+    
+    /* Center the required field indicator */
+    select[required] {
+      position: relative;
+    }
+    
+    /* Center the button horizontally */
+    button[type='submit'] {
+      display: block;
+      margin: 0 auto;
+    }
+    /* Media queries for responsiveness */
+    @media (max-width: 768px) {
+      form {
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 12rem;
+      }
+    }
+  </style>
+  <div class="cont">
+    <form method="post">
+      {% csrf_token %}
+      <div class="container">
+        {{ form.as_p }}
+        <button type="submit">submit</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

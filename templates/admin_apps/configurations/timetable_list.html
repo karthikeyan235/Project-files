@@ -1,0 +1,83 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block bodyblock %}
+{% load crispy_forms_tags %}
+
+<link rel="stylesheet" type="text/css" href="{% static "/admin_apps/registrations/css/details_list.css" %}">
+<script src="{% static "/admin_apps/registrations/js/details_list.js" %}"></script>
+
+{% include "base/alert.html" %}
+
+  <article class="card">
+    <header>
+      <div>
+        <div class="buttons">
+            <a href="{% url 'adminconfig_homepage' %}" class="button">Back</a>
+            <a href="{% url 'timetable-create' %}" class="button" style="float:right">Add Timetable</a>
+        </div>
+      </div>
+    </header>
+    <div class="container">
+      <div class="search-container">
+        <input type="text" id="myInput" onkeyup="myFunction(1,2)" class="form-control" placeholder="Search By Day/Period ....">
+      </div>
+      <form method="get" class="filter-form" novalidate>
+        {% csrf_token %}
+        {{ filter_form.class_name }}
+        {{ filter_form.section }}
+        <button type="submit">Apply Filters</button>
+    </form>
+      <div class="export-container">
+        <div class="btn-group">
+          <select class="btn btn-secondary dropdown-toggle" aria-labelledby="dropdownMenuButton" id="exportDropdown" aria-haspopup="true" aria-expanded="false">
+            <option disabled selected>SELECT FORMAT</option>
+            <option value="excel" class="dropdown-item">EXCEL</option>
+            <option value="csv" class="dropdown-item">CSV</option>
+          </select>
+          <button class="btn btn-secondary" onclick="handleExportSelection('timetable',8)" style="border-radius: 10px;">Export</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="tables">
+      <table class="active" id="myTable">
+        <tbody class="active">
+          
+              <tr>
+                <th>#</th>
+                <th>DAY OF WEEK</th>
+                <th>PERIOD NAME</th>
+                <th>START TIME</th>
+                <th>END TIME</th>
+                <th>TEACHER</th>
+                <th>CLASS</th>
+                <th>SECTION</th>
+                <th >ACTIONS</th>
+              </tr>
+             
+                <tr>
+                  {% for timetable in timetables %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ timetable.day_of_week }}</td>
+            <td>{{ timetable.period_name }}</td>
+            <td>{{ timetable.start_time }}</td>
+            <td>{{ timetable.end_time }}</td>
+            <td>{{ timetable.teacher_id }}</td>
+            <td>{{ timetable.class_name }}</td>
+            <td>{{ timetable.section }}</td>
+            <td>
+
+            <a href="{% url 'timetable-update' timetable.pk %}" class="btn btn-primary btn-sm">Edit</a>
+            <a href="{% url 'timetable-delete' timetable.pk %}" class="btn btn-danger btn-sm">Delete</a>
+
+        </tr>
+      {% endfor %}
+                  </tr>
+               
+        </tbody>
+      </table>
+      <p id="noResults" class="no-results" style="display: none;">No matches found.</p>
+    </div>
+  </article> 
+{% endblock %}

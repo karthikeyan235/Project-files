@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %}
+
+{% block bodyblock %}
+  <style>
+    .cont {
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .confirmation-container {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      max-width: 400px;
+    }
+    
+    .confirmation-container h1 {
+      color: #333;
+    }
+    
+    .holiday-name {
+      font-weight: bold;
+      color: #e74c3c;
+    }
+    
+    .delete-form {
+      margin-top: 20px;
+    }
+    
+    .delete-button {
+      background-color: #e74c3c;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .delete-button:hover {
+      background-color: #c0392b;
+    }
+    
+    .cancel-link {
+      display: block;
+      margin-top: 10px;
+      text-decoration: none;
+    
+      color: #3498db;
+    }
+    
+    .cancel-link:hover {
+      color: #2980b9;
+    }
+  </style>
+  {% include 'base/alert.html' %}
+
+  <div class="cont">
+    <div class="confirmation-container">
+      <h1>Confirm Delete</h1>
+      <p>
+        Are you sure you want to delete "<span class="holiday-name">{{ holiday.holiday_name }}</span>"?
+      </p>
+      <form method="post" class="delete-form">
+        {% csrf_token %}
+        <button type="submit" class="delete-button">Yes, Delete</button>
+      </form>
+      <a href="{% url 'holiday-list' %}" class="cancel-link">Cancel</a>
+    </div>
+  </div>
+{% endblock %}

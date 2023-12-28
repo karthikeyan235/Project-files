@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+
+{% block bodyblock %}
+  <style type="text/css">
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    }
+    
+    tr {
+      border: solid 1px;
+    }
+    
+    .an {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 6px 12px;
+      background-color: #007bff;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .an:hover {
+      background-color: #0061ff;
+      color: black;
+    }
+  </style>
+  <div class="container">
+    <h2>Teacher Details</h2>
+
+    {% include 'base/alert.html' %}
+    <table>
+      <tr>
+        <th>Name</th>
+        <td>{{ teacher.name }}</td>
+      </tr>
+      <tr>
+        <th>Teacher ID</th>
+        <td>{{ teacher.teacher_id }}</td>
+      </tr>
+      <tr>
+        <th>Tag ID</th>
+        <td>{{ teacher.tag_id }}</td>
+      </tr>
+      <tr>
+        <th>Email ID</th>
+        <td>{{ teacher.email }}</td>
+      </tr>
+      <tr>
+        <th>Mobile Number</th>
+        <td>{{ teacher.mobno }}</td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td>
+          {% if teacher.gemder == 'M' %}
+            Male
+          {% elif teacher.gender == 'F' %}
+            Female
+          {% else %}
+            Other
+          {% endif %}
+        </td>
+      </tr>
+    </table>
+
+    <br />
+    <div>
+      <a href="{% url 'teacher-update' teacher.pk %}" class="an">Edit</a>
+      <a href="{% url 'teacher-delete' teacher.pk %}" class="an">Delete</a>
+    </div>
+  </div>
+{% endblock %}

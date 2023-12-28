@@ -1,0 +1,166 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}  
+ 
+  <link rel="stylesheet" type="text/css" href="{% static "/trackingcss/register.css" %}"> 
+
+  <style>
+    /* Container */
+    .cont{
+
+      justify-content:center;
+      background-color: #9babb8;
+      height: 90vh;
+    }
+    .cnt {
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #ffff;
+}
+  
+    /* Form styling */
+    #route-form {
+      text-align: center;
+      color: white;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+    }
+  
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+  
+    #submit-button {
+      background-color: #FF5722;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    #submit-button:hover {
+      background-color: #E64A19;
+    }
+  
+    #import-button {
+      background-color: #FF5722;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  
+    #import-button:hover {
+      background-color: #E64A19;
+    }
+  
+    /* Success message */
+    .success {
+      color: #28a745;
+      font-weight: bold;
+    }
+  
+    /* Error message */
+    .error {
+      color: red;
+      text-align: center;
+      font-size: 12px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  
+    /* Icons */
+    .bi {
+      font-size: 24px;
+      vertical-align: middle;
+    }
+  
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .cnt {
+        max-width: 100%;
+        margin: 0;
+        padding: 10px;
+      }
+    }
+ 
+
+
+  </style>
+  
+   
+    <!-- .cnt{
+      display:flex;
+      justify-content:center;
+      background-color: #9babb8;
+      height: 90vh;
+    }
+
+
+  </style> -->
+</head>
+<body>
+ 
+  <div class="cont">
+    <div class="cnt">
+    <form method='POST' id="route-form" action='' class="form-visible">
+      <h3 align="center" style="color:black"><i class="bi bi-truck-front"></i>Registration</h3>
+    
+      <div class="form-group">
+        <input type="text" id="route-number" placeholder="Route Number" name="route_no" required pattern="[0-9]+" title="Please enter a valid numeric route number">
+      </div>
+    
+      <div class="form-group">
+        <input type="text" id="vts-id" placeholder="VTS ID" name="vts_id" required
+         pattern="[A-Za-z0-9]{4,10}"
+         title="VTS ID must be 4 to 10 characters long and can only contain letters and numbers">
+      </div>
+    
+      <div class="form-group">
+        <input type="text" id="route-map" placeholder="Route Name" name="route_name" required pattern="^[A-Za-z0-9\s\-]+$">
+      </div>
+    
+      <div class="form-group">
+        <input type="text" id="vehicle-number" placeholder="Vehicle Number" name="vehicle_no" required pattern="[A-Za-z0-9]{1,10}" title="Please enter a valid Vehicle Number (up to 10 alphanumeric characters)">
+      </div>
+     
+      <div class="form-one">
+      <button type="submit" id="submit-button">Submit</button>
+      <a href="{% url 'import_routes' %}"><button id="import-button" class="btn-danger rounded-3">Import</button></a>
+      </div>
+      {% if messages %}
+        {% for message in messages %}
+          <span><p class="success" id="success">{{ message }}</p></span>
+        {% endfor %}
+      {% endif %}
+      
+      {% if error_message %}
+        <p class="error" style="color:red;text-align:center;font-size:12px;margin-top:10px;font-weight:bold;">{{ error_message }}</p>
+      {% endif %}
+      {% csrf_token %}
+    </form>  
+  </div>
+</div>
+    
+    <script>
+      document.getElementById('import-button').addEventListener('click', function() {
+        window.location.href = "{% url 'import_routes' %}";
+      });
+    </script>
+    
+{% endblock %}
+
+  
+

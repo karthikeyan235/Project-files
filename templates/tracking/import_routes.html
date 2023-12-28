@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block bodyblock %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static "/trackingcss/import.css" %}">
+
+  <div class="container">
+    <div class="errors">
+      {% if import_result %}
+      <h2>Import Result:</h2>
+      <p class="import-result">{{ import_result }}</p>
+      {% endif %}
+      {% if error_messages %}
+      <h2>Errors:</h2>
+      <ul class="error-list">
+          {% for error in error_messages %}
+          <li>{{ error }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+      <div class="card">
+        <div class="card-header">IMPORT</div>
+        <div class="card-content">
+          <form method="post"  enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="file" required>
+            <button class="card-button" type="submit">Import</button>
+        </form>
+        </div>
+    </div>
+  </div>
+  
+  
+</div>
+
+
+{% endblock  %}
+
+
+

@@ -1,0 +1,89 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block bodyblock %}
+
+<link rel="stylesheet" type="text/css" href="{% static "/admin_apps/student_attendance/css/student_report.css" %}"> 
+<script src="{% static "/admin_apps/student_attendance/js/student_report.js" %}"></script> 
+
+<div class="container">
+  <div class="row" style="background-color:#F4DFC8">
+    <div class="col-md-3">
+      <div class="left-div">
+        <div class="form-wrapper">
+          <form action="" method="post">
+            {% csrf_token %}
+          <div class="inputbox">
+            <input type="text" id="student_id" name="student_id" value="{{res.0}}" required>
+            <span>Student ID</span>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="data" class="lb">From Date</label>
+          <input type="date" id="from_dt" name="from_date" class="infos" value="{{res.1}}" required>
+        </div>
+        <div class="form-field">
+          <label for="data" class="lb">To Date</label>
+          <input type="date" id="to_dt" name="to_date" class="infos" value="{{res.2}}" required>
+        </div>
+        <div class="form-buttons">
+          <div class="submit-button">
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </form>
+        {% if results %}
+          <div class="export-dropdown">
+            <div class="btn-group">
+              <select class="btn btn-secondary dropdown-toggle" aria-labelledby="dropdownMenuButton" id="exportDropdown" aria-haspopup="true" aria-expanded="false" onchange="handleExportSelection('student')">
+                <option disabled selected>Export</option>
+                <option value="excel" class="dropdown-item">EXCEL</option>
+                <option value="csv" class="dropdown-item">CSV</option>
+                <!-- <option value="pdf" class="dropdown-item">PDF</option> -->
+              </select>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <!-- for altert -->
+        <div class="alert-container">
+          {% include "base/alert.html" %}
+      </div>
+      </div>
+    </div>
+      <div class="col-md-9" id="table-responsive" >
+       
+      {% if results %}
+
+      <table id='myTable' class='table'>
+       <thead><tr id='table_header'>
+          <th>#</th>
+         <th>Date</th>
+         <th>Time</th>
+         <th>Event</th>
+         <th>Details</th>
+       </tr></thead><tbody>
+         {% for result in results %}
+         <tr>
+          <td>{{ forloop.counter }}</td>
+         {% for i in result %}
+         {% if i == 0 %}
+         <td>IN</td>
+         {% elif i == 1 %}
+          <td>OUT</td> 
+          {% else %}
+          <td>{{i}}</td>
+         {% endif %}        
+         {% endfor %}
+           </tr>
+         {% endfor %}
+         </tbody></table>
+         {% endif %}
+
+    </div>
+  </div>
+</div>
+<script>
+ document.getElementById('from_dt').max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+document.getElementById('to_dt').max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];  
+</script>
+
+{% endblock bodyblock %}

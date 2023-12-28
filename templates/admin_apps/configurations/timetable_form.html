@@ -1,0 +1,99 @@
+{% extends 'base/base.html' %}
+{% block bodyblock %}
+  {% load crispy_forms_tags %}
+
+  <style>
+    .container {
+      width: 95%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-top: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    form {
+      margin-top: 20px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+    .col-md-6 {
+      width: 48%;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+    }
+    .btn-danger {
+      margin-left: 10px;
+    }
+    @media screen and (max-width: 768px) {
+      .row {
+        flex-direction: column;
+      }
+      .col-md-6 {
+        width: 100%;
+      }
+    }
+  </style>
+
+  {% include 'base/alert.html' %}
+
+  <div class="container">
+    <h1>
+      {% if request.resolver_match.url_name == 'timetable-create' %}
+        CREATE
+      {% else %}
+        EDIT
+      {% endif %}TIMETABLE
+    </h1>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-md-6">{{ form.day_of_week|as_crispy_field }}</div>
+        <div class="col-md-6">{{ form.period_name|as_crispy_field }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">{{ form.start_time|as_crispy_field }}</div>
+        <div class="col-md-6">{{ form.end_time|as_crispy_field }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">{{ form.class_name|as_crispy_field }}</div>
+        <div class="col-md-6">{{ form.section|as_crispy_field }}</div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">{{ form.teacher_id|as_crispy_field }}</div>
+      </div>
+      <button type="submit">Save</button>
+      <a href="{% url 'timetable-list' %}" class="btn btn-danger">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
