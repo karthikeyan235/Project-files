@@ -20,11 +20,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('apps.Accounts.urls')),
-    path('teacher/',include('apps.teacher_app.urls')),
-    path('gate_config/',include('apps.gate_config.urls')),
-    path('admin_apps/',include('apps.admin_apps.registration_app.urls')),
-    path('student/',include('apps.parent_app.urls')),
-    path('staff/',include('apps.staff_app.urls')),
-    path('tracking_app/',include('apps.admin_apps.app.urls')),
+    #path('',include('apps.Accounts.urls')),
+    #path('teacher/',include('apps.teacher_app.urls')),
+    #path('gate_config/',include('apps.gate_config.urls')),
+    #path('admin_apps/',include('apps.admin_apps.registration_app.urls')),
+    #path('student/',include('apps.parent_app.urls')),
+    #path('staff/',include('apps.staff_app.urls')),
+    #path('tracking_app/',include('apps.admin_apps.app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
